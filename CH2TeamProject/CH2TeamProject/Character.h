@@ -4,6 +4,8 @@
 
 #include <string>
 #include "Monster.h"
+#include "Item.h"
+#include <vector>
 
 
 class Character
@@ -56,9 +58,16 @@ public:
 
     //void SetExp(int InExp);
 
+    void AddItem(const Item& item);
+
+    void ShowItems() const;
+
+    bool UseItem(int index);
+
 
 
 private:
+    std::vector<Item> items;
     std::string name;
     int HP;
     int Def;

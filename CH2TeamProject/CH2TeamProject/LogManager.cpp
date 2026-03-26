@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+#include <string>
 #include "LogManager.h"
 
 void LogManager::PrintLine()
@@ -34,7 +35,10 @@ void LogManager::PrintPlayerTurnMenu()
 {
     std::cout << "\n당신의 행동을 선택하세요." << std::endl;
     std::cout << "1. 공격" << std::endl;
-    std::cout << "2. 도망간다" << std::endl;
+    std::cout << "2. 가방" << std::endl;
+    std::cout << "3. 도망간다" << std::endl;
+    std::cout << "선택: ";
+
 }
 
 void LogManager::PrintRunAway()
@@ -61,4 +65,44 @@ void LogManager::PrintMainMenu()
     std::cout << "4. 미정" << std::endl;
     std::cout << "5. 게임 종료" << std::endl;
     std::cout << "선택: ";
+}
+
+void LogManager::PrintStartScreen()
+{
+    std::cout << "\n\n\n\n\n\n";
+
+
+    std::cout << "                                                ==========================\n\n";
+    std::cout << "                                                         집 으 로\n\n";
+    std::cout << "                                                ==========================\n\n";
+    std::cout << "\n\n";
+
+    std::cout << "                                                ==========================\n\n";
+    std::cout << "                                                     당신의 이름은...?\n\n";
+    std::cout << "                                                ==========================\n\n\n";
+    std::cout << "\n";
+    std::cout << "                                                >> ";
+}
+
+void LogManager::PrintCenter(const std::string& text)
+{
+    const int width = 100;
+    int padding = (width - static_cast<int>(text.size())) / 2;
+
+    if (padding < 0)
+        padding = 0;
+
+    std::cout << std::string(padding, ' ') << text << std::endl;
+}
+
+void LogManager::PrintCenterInputPrompt()
+{
+    const int width = 100;
+    std::string prompt = ">> ";
+    int padding = (width - static_cast<int>(prompt.size())) / 2;
+
+    if (padding < 0)
+        padding = 0;
+
+    std::cout << std::string(padding, ' ') << prompt;
 }

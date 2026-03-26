@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include "Character.h"
+#include "Item.h"
 
 Character::Character(std::string InName)
     : name(InName), HP(100), Def(10), Att(20), Spd(5), Dam(0)  //, Lvl(1), Exp(0), MaxExp(100)
@@ -51,25 +52,39 @@ void Character::printcurrentstatus() const
     std::cout << "---------------------------------------\n" << std::endl;
 }
 
-/* [한길] 레벨업 함수 추가. 레벨 시스템 변경으로 주석처리
-void Character::LevelUp()
+void Character::ShowItems() const
 {
-    if (Exp > MaxExp)
+    std::cout << "------------ 아이템창 ------------" << std::endl;
+
+    if (items.empty())
     {
-        std::cout << "레벨업!!!" << std::endl;
-        ++Lvl;
-        MaxExp += 100;
+        std::cout << "아이템이 없습니다." << std::endl;
     }
+    else
+    {
+        for (int i = 0; i < items.size(); i++)
+        {
+            std::cout << i + 1 << ". "
+                << items[i].GetName()
+                << " (" << items[i].GetCount() << "개)" << std::endl;
+        }
+    }
+
+    std::cout << "0. 취소" << std::endl;
+    std::cout << "---------------------------------" << std::endl;
 }
 
- [한길] 경험치 획득 함수 추가.
-void Character::EarnExp(Monster& monster)
+bool Character::UseItem(int index)
 {
-    Exp = monster.GetGivingExp();
-}
-*/
+    if (index < 0 || index >= static_cast<int>(items.size()))
+    {
+        std::cout << "잘못된 선택입니다." << std::endl;
+        return false;
+    }
 
-// Getter()
+    return items[index].Use(*this);
+}
+
 std::string Character::GetName() const
 {
     return name;
@@ -137,6 +152,11 @@ void Character::SetAtt(int InAtt)
 void Character::SetSpd(int InSpd)
 {
     Spd = InSpd;
+}
+
+void Character::AddItem(const Item& item)
+{
+    items.push_back(item);
 }
 
 /* [한길] 레벨, 경험치 Setter 추가. 레벨 시스템 변경으로 주석처리

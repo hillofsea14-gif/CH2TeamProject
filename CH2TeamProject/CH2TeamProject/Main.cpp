@@ -9,11 +9,6 @@
 #include "Slime.h"
 #include "LogManager.h"
 
-bool IsPlayerFast(Character& character, Monster& monster);
-void PAttack(Character& character, Monster& monster);
-void MAttack(Character& character, Monster& monster);
-void Battle(Character& character, Monster& monster);
-
 bool IsPlayerFast(Character& character, Monster& monster)
 {
     int A = character.GetSpd();
@@ -30,6 +25,21 @@ void PAttack(Character& character, Monster& monster)
 void MAttack(Character& character, Monster& monster)
 {
     monster.attack(character, monster);
+}
+
+bool OpenItemMenu(Character& character)
+{
+    character.ShowItems();
+
+    int choice;
+    std::cin >> choice;
+
+    if (choice == 0)
+    {
+        LogManager::PrintMessage("아이템창을 닫았습니다.");
+        return false; 
+    }
+    return character.UseItem(choice - 1); 
 }
 
 void Battle(Character& character, Monster& monster)
@@ -74,6 +84,15 @@ void Battle(Character& character, Monster& monster)
         }
         else if (choice == 2)
         {
+            bool usedItem = OpenItemMenu(character);
+
+            if (!usedItem)
+            {
+                continue;
+            }
+        }
+        else if (choice == 3)
+        {
             LogManager::PrintRunAway();
             break;
         }
@@ -104,11 +123,12 @@ int main()
 
     LevelComponent* MyLevel = new LevelComponent();
 
-    std::cout << "이름을 입력하세요: ";
+    LogManager::PrintStartScreen();
     std::cin >> name;
-    std::cout << "환영합니다, " << name << "님!" << std::endl;
+    LogManager::PrintMessage("환영합니다, " + name + "님!");
 
     Character player(name);
+    player.AddItem(Item("회복약", 50, 3));
 
     while (true)
     {
