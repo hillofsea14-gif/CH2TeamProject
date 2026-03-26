@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="LevelComponent.cpp" />
+    <ClCompile Include="LogManager.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Slime.cpp" />
@@ -136,6 +137,7 @@
   <ItemGroup>
     <ClInclude Include="Character.h" />
     <ClInclude Include="LevelComponent.h" />
+    <ClInclude Include="Logmanager.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="Slime.h" />
   </ItemGroup>
