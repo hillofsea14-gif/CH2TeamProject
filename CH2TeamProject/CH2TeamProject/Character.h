@@ -4,6 +4,7 @@
 
 #include <string>
 #include "Monster.h"
+#include "LevelComponent.h"
 #include "Item.h"
 #include <vector>
 
@@ -12,17 +13,15 @@ class Character
 {
 public:
     Character(std::string InName);
+    ~Character();
 
     void attack(Character& character, Monster& monster);
 
     void takeDamage(Monster& monster);
 
-    void printcurrentstatus() const;
+    void printcurrentstatus() const;   // [한길] 멤버변수로 LevelComp가 생겨서 매개변수 삭제함.
 
-    // [한길] 레벨업, 경험치 획득 함수 추가. 레벨 시스템 변경으로 주석처리
-    //void LevelUp();
-
-    //void EarnExp(Monster& monster);
+    void EarnExp(float Amount);     // [한길] Amount의 인자값이 될 몬스터의 givingExp를 float으로 수정함.
 
     // Getter()
     std::string GetName() const;
@@ -37,10 +36,6 @@ public:
 
     int GetDam() const;
 
-    // [한길] 레벨, 경험치 Getter 추가. 레벨 시스템 변경으로 주석처리
-    //int GetLvl() const;
-
-    //int GetExp() const;
 
     // Setter()
     void SetName(std::string InName);
@@ -52,11 +47,6 @@ public:
     void SetAtt(int InAtt);
 
     void SetSpd(int InSpd);
-
-    // [한길] 레벨, 경험치 Setter추가. 레벨 시스템 변경으로 주석처리
-    //void SetLvl(int InLvl);
-
-    //void SetExp(int InExp);
 
     void AddItem(const Item& item);
 
@@ -74,9 +64,6 @@ private:
     int Att;
     int Spd;
     int Dam;
-    // [한길] 캐릭터 레벨, 경험치, 최대경험치 추가. 레벨 시스템 변경으로 주석처리
-    //int Lvl;
-    //int Exp;
-    //int MaxExp;
+    LevelComponent* LevelComp;
 };
 

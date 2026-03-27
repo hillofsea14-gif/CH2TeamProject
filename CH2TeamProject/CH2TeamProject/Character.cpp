@@ -5,11 +5,23 @@
 #include "Item.h"
 
 Character::Character(std::string InName)
-    : name(InName), HP(100), Def(10), Att(20), Spd(5), Dam(0)  //, Lvl(1), Exp(0), MaxExp(100)
-                                                                //[한길] 레벨, 경험치, 최대경험치 초기화. 레벨 시스템 변경으로 주석처리
+    : name(InName), HP(100), Def(10), Att(20), Spd(5), Dam(0)
 {
-
+    // [상진] 객체 생성 시 레벨 컴포넌트 동적 할당
+    LevelComp = new LevelComponent();
 }
+
+Character::~Character()
+{
+    if (LevelComp != nullptr)
+    {
+        //[상진] 소멸 시 메모리 해제
+        delete LevelComp;
+        LevelComp = nullptr;
+        std::cout << "[시스템] Character 소멸: LevelComponont 메모리가 해제되었습니다." << std::endl;
+    }
+}
+
 
 void Character::attack(Character& character, Monster& monster)
 {
@@ -45,12 +57,24 @@ void Character::printcurrentstatus() const
 {
     std::cout << "-----------Current Status: -----------\n";
     std::cout << "플레이어 " << name << "의 현재 상태입니다." << std::endl;
+    std::cout << "Level : " << LevelComp->GetCurrentLevel() << std::endl;     // [한길] 레벨 출력 추가
     std::cout << "HP : " << HP << std::endl;
     std::cout << "Def : " << Def << std::endl;
     std::cout << "Att : " << Att << std::endl;
     std::cout << "Spd : " << Spd << std::endl;
     std::cout << "---------------------------------------\n" << std::endl;
 }
+
+
+void Character::EarnExp(float Amount)
+{
+    if (LevelComp != nullptr)
+    {
+        // LevelComponent의 경험치 추가 함수 호출
+        LevelComp->GainExperience(Amount);    // [한길] 몬스터의 givingExp를 float으로 변경하여 형변환 필요 없어짐.
+    }
+}
+
 
 void Character::ShowItems() const
 {
@@ -85,6 +109,8 @@ bool Character::UseItem(int index)
     return items[index].Use(*this);
 }
 
+
+// Getter()
 std::string Character::GetName() const
 {
     return name;
@@ -115,17 +141,7 @@ int Character::GetDam() const
     return Dam;
 }
 
-/* [한길] 레벨, 경험치 Getter 추가. 레벨 시스템 변경으로 주석처리
-int Character::GetLvl() const
-{
-    return Lvl;
-}
 
-int Character::GetExp() const
-{
-    return Exp;
-}
-*/
 
 // Setter()
 void Character::SetName(std::string InName)
@@ -159,13 +175,3 @@ void Character::AddItem(const Item& item)
     items.push_back(item);
 }
 
-/* [한길] 레벨, 경험치 Setter 추가. 레벨 시스템 변경으로 주석처리
-void Character::SetLvl(int InLvl)
-{
-    Lvl = InLvl;
-}
-
-void Character::SetExp(int InExp)
-{
-    Exp = InExp;
-*/

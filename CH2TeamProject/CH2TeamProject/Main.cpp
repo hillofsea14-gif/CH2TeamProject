@@ -37,9 +37,9 @@ bool OpenItemMenu(Character& character)
     if (choice == 0)
     {
         LogManager::PrintMessage("아이템창을 닫았습니다.");
-        return false; 
+        return false;
     }
-    return character.UseItem(choice - 1); 
+    return character.UseItem(choice - 1);
 }
 
 void Battle(Character& character, Monster& monster)
@@ -79,6 +79,7 @@ void Battle(Character& character, Monster& monster)
             {
                 LogManager::PrintMessage("몬스터가 사망하였습니다.");
                 LogManager::PrintMessage("전투 승리!!");
+                character.EarnExp(monster.GetGivingExp());        // [한길] 경험치 함수 추가.
                 break;
             }
         }

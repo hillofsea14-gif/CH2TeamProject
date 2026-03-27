@@ -7,8 +7,7 @@
 
 
 Monster::Monster(std::string InName)
-    : name(InName), HP(100), Def(10), Att(20), Spd(7), Dam(0) // Lvl(1), GivingExp(50)
-                                                               //[한길] 레벨, 주는 경험치 추가 
+    : name(InName), HP(100), Def(10), Att(20), Spd(7), Dam(0), Lvl(1), GivingExp(50.f)
 {
 
 }
@@ -46,6 +45,7 @@ void Monster::printcurrentstatus() const
 {
     std::cout << "-----------Current Status: -----------\n";
     std::cout << "몬스터 " << name << "의 현재 상태입니다." << std::endl;
+    std::cout << "Level : " << Lvl << std::endl;                      // [한길] level 표시 추가.
     std::cout << "HP : " << HP << std::endl;
     std::cout << "Def : " << Def << std::endl;
     std::cout << "Att : " << Att << std::endl;
@@ -85,16 +85,15 @@ int Monster::GetDam() const
     return Dam;
 }
 
-/* [한길] 레벨, 주는 경험치 Getter 추가. 레벨 시스템 변경으로 주석처리
 int Monster::GetLvl() const
 {
     return Lvl;
 }
 
-int Monster::GetGivingExp() const
+float Monster::GetGivingExp() const  // [한길] 시스템 변경으로 int에서 float으로 변경.
 {
     return GivingExp;
-*/
+}
 
 // Setter()
 void Monster::SetName(std::string InName)

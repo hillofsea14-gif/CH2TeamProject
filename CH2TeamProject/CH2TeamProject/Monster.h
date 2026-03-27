@@ -33,10 +33,9 @@ public:
 
     int GetDam() const;
 
-    //[한길] 레벨, 주는 경험치 Getter 추가. 레벨 시스템 변경으로 주석처리
-    //int GetLvl() const;
+    int GetLvl() const;
 
-    //int GetGivingExp() const;
+    float GetGivingExp() const;   // [한길] 시스템 변경으로 자료형 변경.
 
     // Setter()
     void SetName(std::string InName);
@@ -58,8 +57,7 @@ private:
     int Att;
     int Spd;
     int Dam;
-    //[한길] 레벨, 몬스터가 주는 경험치 추가. 레벨 시스템 변경으로 주석처리
-    //int Lvl;
-    //int GivingExp;
+    int Lvl;
+    float GivingExp;   // [한길] 시스템 변경으로 자료형 변경.
 };
 
