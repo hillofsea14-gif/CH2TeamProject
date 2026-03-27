@@ -5,7 +5,7 @@
 #include "Item.h"
 
 Character::Character(std::string InName)
-    : name(InName), CurrentHP(100), MaxHP(100), Def(10), Att(20), Spd(5), Dam(0)
+    : name(InName), CurrentHP(100), MaxHP(100), Def(10), Att(20), Spd(5), Dam(0), Gold(0)
 {
     // [상진] 객체 생성 시 레벨 컴포넌트 동적 할당
     LevelComp = new LevelComponent();
@@ -62,6 +62,7 @@ void Character::printcurrentstatus() const
     std::cout << "Def : " << Def << std::endl;
     std::cout << "Att : " << Att << std::endl;
     std::cout << "Spd : " << Spd << std::endl;
+    std::cout << "Gold : " << Gold << "G." << std::endl;     // [한길] 추가
     std::cout << "---------------------------------------\n" << std::endl;
 }
 
@@ -75,6 +76,13 @@ void Character::EarnExp(float Amount)
     }
 }
 
+
+void Character::EarnGold(Monster& monster)
+{
+    Gold += monster.GetGivingGold();
+    std::cout << "\n몬스터 " << monster.GetName() << "을(를) 처치하여 " << monster.GetGivingGold() << " G. 를 획득하였습니다." << std::endl;
+    std::cout << "현재 소지 Gold : " << Gold << std::endl;
+}
 
 void Character::ShowItems() const
 {
@@ -146,6 +154,10 @@ int Character::GetDam() const
     return Dam;
 }
 
+int Character::GetGold() const
+{
+    return Gold;
+}
 
 
 // Setter()

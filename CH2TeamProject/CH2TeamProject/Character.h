@@ -23,6 +23,8 @@ public:
 
     void EarnExp(float Amount);     // [한길] Amount의 인자값이 될 몬스터의 givingExp를 float으로 수정함.
 
+    void EarnGold(Monster& monster);  // [한길] 골드 획득 함수.
+
     // Getter()
     std::string GetName() const;
 
@@ -37,6 +39,8 @@ public:
     int GetSpd() const;
 
     int GetDam() const;
+
+    int GetGold() const;   // [한길] 골드 겟터 추가.
 
 
     // Setter()
@@ -69,6 +73,7 @@ private:
     int Att;
     int Spd;
     int Dam;
+    int Gold;    // [한길] 골드 추가.
     LevelComponent* LevelComp;
 };
 

@@ -7,7 +7,7 @@
 
 
 Monster::Monster(std::string InName)
-    : name(InName), CurrentHP(100), MaxHP(100), Def(10), Att(20), Spd(7), Dam(0), Lvl(1), GivingExp(50.f)
+    : name(InName), CurrentHP(100), MaxHP(100), Def(10), Att(20), Spd(7), Dam(0), Lvl(1), GivingExp(50.f), GivingGold(5)
 {
 
 }
@@ -94,6 +94,11 @@ int Monster::GetLvl() const
 float Monster::GetGivingExp() const  // [한길] 시스템 변경으로 int에서 float으로 변경.
 {
     return GivingExp;
+}
+
+int Monster::GetGivingGold() const
+{
+    return GivingGold;
 }
 
 // Setter()
