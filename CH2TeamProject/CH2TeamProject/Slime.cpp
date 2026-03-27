@@ -7,7 +7,8 @@
 
 Slime::Slime() : Monster("슬라임")
 {
-    SetHP(30);
+    SetMaxHP(30);
+    SetCurrentHP(30);
     SetAtt(5);
     SetDef(2);
     SetSpd(3);

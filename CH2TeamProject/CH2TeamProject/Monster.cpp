@@ -7,7 +7,7 @@
 
 
 Monster::Monster(std::string InName)
-    : name(InName), HP(100), Def(10), Att(20), Spd(7), Dam(0), Lvl(1), GivingExp(50.f)
+    : name(InName), CurrentHP(100), MaxHP(100), Def(10), Att(20), Spd(7), Dam(0), Lvl(1), GivingExp(50.f)
 {
 
 }
@@ -32,12 +32,8 @@ void Monster::takeDamage(Character& character)
     std::cout << "---------------------------------------" << std::endl;
     std::cout << "몬스터 " << name << "이(가) " << character.GetName()
         << "에게 " << character.GetDam() << "만큼의 피해를 입었습니다." << std::endl;
-    HP -= character.GetDam();
-    if (HP < 0)                                      // [한길] 체력이 0보다 아래로 떨어지는 것 방지.
-    {
-        HP = 0;
-    }
-    std::cout << "현재 " << name << "의 남은 체력은 " << HP << " 입니다." << std::endl;
+    SetCurrentHP(CurrentHP - character.GetDam());
+    std::cout << "현재 " << name << "의 남은 체력은 " << CurrentHP << "/" << MaxHP << " 입니다." << std::endl;
     std::cout << "---------------------------------------\n" << std::endl;
 }
 
@@ -46,7 +42,7 @@ void Monster::printcurrentstatus() const
     std::cout << "-----------Current Status: -----------\n";
     std::cout << "몬스터 " << name << "의 현재 상태입니다." << std::endl;
     std::cout << "Level : " << Lvl << std::endl;                      // [한길] level 표시 추가.
-    std::cout << "HP : " << HP << std::endl;
+    std::cout << "HP : " << CurrentHP << "/" << MaxHP << std::endl;
     std::cout << "Def : " << Def << std::endl;
     std::cout << "Att : " << Att << std::endl;
     std::cout << "Spd : " << Spd << std::endl;
@@ -60,9 +56,14 @@ std::string Monster::GetName() const
     return name;
 }
 
-int Monster::GetHP() const
+int Monster::GetCurrentHP() const
 {
-    return HP;
+    return CurrentHP;
+}
+
+int Monster::GetMaxHP() const
+{
+    return MaxHP;
 }
 
 int Monster::GetDef() const
@@ -102,9 +103,34 @@ void Monster::SetName(std::string InName)
     return;
 }
 
-void Monster::SetHP(int InHP)
+void Monster::SetCurrentHP(int InHP)
 {
-    HP = InHP;
+    CurrentHP = InHP;
+
+    if (CurrentHP > MaxHP)
+    {
+        CurrentHP = MaxHP;
+    }
+
+    if (CurrentHP < 0)
+    {
+        CurrentHP = 0;
+    }
+}
+
+void Monster::SetMaxHP(int InMaxHP)
+{
+    MaxHP = InMaxHP;
+
+    if (MaxHP < 1)
+    {
+        MaxHP = 1;
+    }
+
+    if (CurrentHP > MaxHP)
+    {
+        CurrentHP = MaxHP;
+    }
 }
 
 void Monster::SetDef(int InDef)

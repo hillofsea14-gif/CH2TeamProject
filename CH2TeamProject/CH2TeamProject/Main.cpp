@@ -64,7 +64,7 @@ void Battle(Character& character, Monster& monster)
         }
     }
 
-    while (character.GetCurrentHP() > 0 && monster.GetHP() > 0)
+    while (character.GetCurrentHP() > 0 && monster.GetCurrentHP() > 0)
     {
         LogManager::PrintPlayerTurnMenu();
 
@@ -75,7 +75,7 @@ void Battle(Character& character, Monster& monster)
         {
             PAttack(character, monster);
 
-            if (monster.GetHP() <= 0)
+            if (monster.GetCurrentHP() <= 0)
             {
                 LogManager::PrintMessage("몬스터가 사망하였습니다.");
                 LogManager::PrintMessage("전투 승리!!");
@@ -103,7 +103,7 @@ void Battle(Character& character, Monster& monster)
             continue;
         }
 
-        if (monster.GetHP() > 0)
+        if (monster.GetCurrentHP() > 0)
         {
             LogManager::PrintEnemyTurn();
             MAttack(character, monster);
