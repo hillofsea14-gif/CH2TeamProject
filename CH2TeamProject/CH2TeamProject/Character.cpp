@@ -5,6 +5,7 @@
 
 Character::Character(std::string InName)
     : name(InName), CurrentHP(100), MaxHP(100), Def(10), Att(20), Spd(5), Dam(0)
+    : name(InName), CurrentHP(100), MaxHP(100), Def(10), Att(20), Spd(5), Dam(0), Gold(0)
 {
     LevelComp = new LevelComponent();
 }
@@ -44,6 +45,7 @@ void Character::printcurrentstatus() const
     std::cout << "Def : " << Def << std::endl;
     std::cout << "Att : " << Att << std::endl;
     std::cout << "Spd : " << Spd << std::endl;
+    std::cout << "Gold : " << Gold << "G." << std::endl;     // [한길] 추가
     std::cout << "---------------------------------------\n" << std::endl;
 }
 
@@ -55,6 +57,17 @@ void Character::EarnExp(float Amount)
     }
 }
 
+<<<<<<< HEAD
+=======
+
+void Character::EarnGold(Monster& monster)
+{
+    Gold += monster.GetGivingGold();
+    std::cout << "\n몬스터 " << monster.GetName() << "을(를) 처치하여 " << monster.GetGivingGold() << " G. 를 획득하였습니다." << std::endl;
+    std::cout << "현재 소지 Gold : " << Gold << std::endl;
+}
+
+>>>>>>> dbc22872bc39443b3a4da41e6d86b191436399b7
 void Character::ShowItems() const
 {
     // 정보창 영역 초기화 느낌으로 덮어쓰기
@@ -134,6 +147,10 @@ int Character::GetDam() const
     return Dam;
 }
 
+int Character::GetGold() const
+{
+    return Gold;
+}
 
 // Setter()
 void Character::SetName(std::string InName)

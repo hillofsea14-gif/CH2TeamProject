@@ -125,9 +125,16 @@ void Battle(Character& character, Monster& monster)
 
             if (monster.GetCurrentHP() <= 0)
             {
+<<<<<<< HEAD
                 LogManager::PrintBattleLog("몬스터가 사망하였습니다.", 4);
                 LogManager::PrintBattleLog("전투 승리!!", 5);
                 character.EarnExp(monster.GetGivingExp());
+=======
+                LogManager::PrintMessage("몬스터가 사망하였습니다.");
+                LogManager::PrintMessage("전투 승리!!");
+                character.EarnExp(monster.GetGivingExp());        // [한길] 경험치 함수 추가.
+                character.EarnGold(monster);  // [한길] 골드 획득 추가.
+>>>>>>> dbc22872bc39443b3a4da41e6d86b191436399b7
                 break;
             }
         }

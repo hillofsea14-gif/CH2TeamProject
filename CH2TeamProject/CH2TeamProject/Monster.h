@@ -40,6 +40,8 @@ public:
 
     float GetGivingExp() const;   // [한길] 시스템 변경으로 자료형 변경.
 
+    int GetGivingGold() const;   // [한길] 기빙골드 겟터 추가.
+
     // Setter()
     void SetName(std::string InName);
 
@@ -65,5 +67,6 @@ private:
     int Dam;
     int Lvl;
     float GivingExp;   // [한길] 시스템 변경으로 자료형 변경.
+    int GivingGold;   // [한길] 몬스터 사냥시 플레이어가 얻는 골드.
 };
 
