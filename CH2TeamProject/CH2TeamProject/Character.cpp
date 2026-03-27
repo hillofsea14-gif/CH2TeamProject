@@ -1,13 +1,11 @@
-﻿// Character.cpp
-
-#include <iostream>
+﻿#include <iostream>
 #include "Character.h"
 #include "Item.h"
+#include "LogManager.h"
 
 Character::Character(std::string InName)
     : name(InName), CurrentHP(100), MaxHP(100), Def(10), Att(20), Spd(5), Dam(0)
 {
-    // [상진] 객체 생성 시 레벨 컴포넌트 동적 할당
     LevelComp = new LevelComponent();
 }
 
@@ -15,49 +13,33 @@ Character::~Character()
 {
     if (LevelComp != nullptr)
     {
-        //[상진] 소멸 시 메모리 해제
         delete LevelComp;
         LevelComp = nullptr;
-        std::cout << "[시스템] Character 소멸: LevelComponont 메모리가 해제되었습니다." << std::endl;
     }
 }
 
-
 void Character::attack(Character& character, Monster& monster)
 {
-    std::cout << "---------------------------------------" << std::endl;
-    std::cout << "플레이어 " << name << "이(가) " << monster.GetName() << "을(를) 공격합니다!!" << std::endl;
-    Dam = Att - monster.GetDef();                       // [한길] 일단 공격력에서 방어력을 뺀 값으로 딜이 들어가게 함.
+    Dam = Att - monster.GetDef();
+
     if (Dam < 0)
     {
-        Dam = 0;              //  [성윤] 방어력이 공격력보다 높을 때, 데미지가 음수가 되는 것을 방지.
+        Dam = 0;
     }
-    std::cout << Dam << "만큼의 피해를 주었습니다." << std::endl;
-    std::cout << "---------------------------------------\n" << std::endl;
 
     monster.takeDamage(character);
-
 }
 
 void Character::takeDamage(Monster& monster)
 {
-    std::cout << "---------------------------------------" << std::endl;
-    std::cout << "플레이어 " << name << "이(가) " << monster.GetName()
-        << "에게 " << monster.GetDam() << "만큼의 피해를 입었습니다." << std::endl;
     SetCurrentHP(CurrentHP - monster.GetDam());
-    if (CurrentHP < 0)                                     
-    {
-        CurrentHP = 0;
-    }
-    std::cout << "현재 플레이어 " << name << "의 남은 체력은 " << CurrentHP << "/" << MaxHP << " 입니다." << std::endl;
-    std::cout << "---------------------------------------\n" << std::endl;
 }
 
 void Character::printcurrentstatus() const
 {
     std::cout << "-----------Current Status: -----------\n";
     std::cout << "플레이어 " << name << "의 현재 상태입니다." << std::endl;
-    std::cout << "Level : " << LevelComp->GetCurrentLevel() << std::endl;     // [한길] 레벨 출력 추가
+    std::cout << "Level : " << LevelComp->GetCurrentLevel() << std::endl;
     std::cout << "HP : " << CurrentHP << "/" << MaxHP << std::endl;
     std::cout << "Def : " << Def << std::endl;
     std::cout << "Att : " << Att << std::endl;
@@ -65,44 +47,50 @@ void Character::printcurrentstatus() const
     std::cout << "---------------------------------------\n" << std::endl;
 }
 
-
 void Character::EarnExp(float Amount)
 {
     if (LevelComp != nullptr)
     {
-        // LevelComponent의 경험치 추가 함수 호출
-        LevelComp->GainExperience(Amount);    // [한길] 몬스터의 givingExp를 float으로 변경하여 형변환 필요 없어짐.
+        LevelComp->GainExperience(Amount);
     }
 }
 
-
 void Character::ShowItems() const
 {
-    std::cout << "------------ 아이템창 ------------" << std::endl;
+    // 정보창 영역 초기화 느낌으로 덮어쓰기
+    LogManager::PrintInfoBox("------------ 아이템창 ------------", 0);
 
     if (items.empty())
     {
-        std::cout << "아이템이 없습니다." << std::endl;
+        LogManager::PrintInfoBox("아이템이 없습니다.", 1);
+        LogManager::PrintInfoBox("0. 취소", 2);
     }
     else
     {
-        for (int i = 0; i < items.size(); i++)
+        for (int i = 0; i < 8; i++)
         {
-            std::cout << i + 1 << ". "
-                << items[i].GetName()
-                << " (" << items[i].GetCount() << "개)" << std::endl;
+            LogManager::PrintInfoBox("                                ", i + 1);
         }
-    }
 
-    std::cout << "0. 취소" << std::endl;
-    std::cout << "---------------------------------" << std::endl;
+        for (int i = 0; i < static_cast<int>(items.size()); i++)
+        {
+            LogManager::PrintInfoBox(
+                std::to_string(i + 1) + ". " +
+                items[i].GetName() + " (" +
+                std::to_string(items[i].GetCount()) + "개)",
+                i + 1
+            );
+        }
+
+        LogManager::PrintInfoBox("0. 취소", static_cast<int>(items.size()) + 1);
+    }
 }
 
 bool Character::UseItem(int index)
 {
     if (index < 0 || index >= static_cast<int>(items.size()))
     {
-        std::cout << "잘못된 선택입니다." << std::endl;
+        LogManager::PrintBattleLog("잘못된 선택입니다.", 7);
         return false;
     }
 
@@ -147,12 +135,10 @@ int Character::GetDam() const
 }
 
 
-
 // Setter()
 void Character::SetName(std::string InName)
 {
     name = InName;
-    return;
 }
 
 void Character::SetCurrentHP(int InCurrentHP)
@@ -165,8 +151,8 @@ void Character::SetCurrentHP(int InCurrentHP)
     }
 
     if (CurrentHP < 0)
-        {
-            CurrentHP = 0;
+    {
+        CurrentHP = 0;
     }
 }
 
@@ -204,4 +190,3 @@ void Character::AddItem(const Item& item)
 {
     items.push_back(item);
 }
-

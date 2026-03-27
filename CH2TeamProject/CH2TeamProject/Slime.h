@@ -9,4 +9,5 @@ class Slime : public Monster
 {
 public:
     Slime();
+    void Draw() const override;
 };

@@ -4,6 +4,8 @@
 #include <random>
 #include <iostream>
 #include <ctime>
+#include "LogManager.h"
+
 
 Bear::Bear(int playerLevel) : Monster("곰")
 {
@@ -21,27 +23,21 @@ Bear::Bear(int playerLevel) : Monster("곰")
     SetSpd(5);
 }
 
-void Bear::PrintBear() // [승민] 해당 몬스터 등장시 형태를 나타내는 함수
+void Bear::PrintBear()
 {
-    std::string bear = R"(
-         __         __
-        /  \.-"""-./  \
-        \    -   -    /
-         |   o   o   |
-         \  .-'''-.  /     (크오오오!)
-       /  '-\__Y__/-' \
-      /      `---`     \
-     /   ______  _______\
-    /  _______________   \
-   /  /               \   \
-  |  |      / \/ \     |  |
-  |  |     |      |    |  |
-   \  \     \____/    /  /
-      \\__\____________/__/
-    )";
-    std::string effect = "   [ 거대한 곰이 바위 뒤에서 일어납니다! ]";
-
-    std::cout << bear << std::endl;
-
-    std::cout << effect << std::endl;
+    LogManager::PrintMonsterBox("         __         __", 0);
+    LogManager::PrintMonsterBox("        /  \\.-\"\"\"-./  \\", 1);
+    LogManager::PrintMonsterBox("        \\    -   -    /", 2);
+    LogManager::PrintMonsterBox("         |   o   o   |", 3);
+    LogManager::PrintMonsterBox("         \\  .-'''-.  /    (크오오오!)", 4);
+    LogManager::PrintMonsterBox("       /  '-\\__Y__/-' \\", 5);
+    LogManager::PrintMonsterBox("      /      `---`     \\", 6);
+    LogManager::PrintMonsterBox("     /   ______  _______\\", 7);
+    LogManager::PrintMonsterBox("    /  _______________   \\", 8);
+    LogManager::PrintMonsterBox("   /  /               \\   \\", 9);
+    LogManager::PrintMonsterBox("  |  |      / \\/ \\     |  |", 10);
+    LogManager::PrintMonsterBox("  |  |     |      |    |  |", 11);
+    LogManager::PrintMonsterBox("   \\  \\     \\____/    /  /", 12);
+    LogManager::PrintMonsterBox("    \\\\__\\____________/__/", 13);
+    LogManager::PrintMonsterBox("[ 거대한 곰이 바위 뒤에서 일어납니다! ]", 15);
 }

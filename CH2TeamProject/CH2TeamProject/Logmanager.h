@@ -17,4 +17,15 @@ public:
     static void PrintMainMenu();
     static void PrintStartScreen();
     static void PrintCenterInputPrompt();
+    static void GoToXY(int x, int y);
+    static void ClearScreen();
+    static void DrawBattleUI();
+    static void PrintBattleLog(const std::string& message, int line);
+    static void PrintInfoBox(const std::string& message, int line);
+    static void PrintMonsterBox(const std::string& message, int line);
+    static void PrintPlayerInfo(const std::string& name, int hp, int maxHP, int att, int def, int spd);
+    static void PrintMonsterInfo(const std::string& name, int hp, int maxHP, int att, int def, int spd);
+    static void PrintBattleMenuUI();
+
+
 };

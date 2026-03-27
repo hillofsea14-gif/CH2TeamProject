@@ -1,6 +1,8 @@
 ﻿#include <iostream>
 #include <string>
+#include <windows.h>
 #include "LogManager.h"
+
 
 void LogManager::PrintLine()
 {
@@ -105,4 +107,115 @@ void LogManager::PrintCenterInputPrompt()
         padding = 0;
 
     std::cout << std::string(padding, ' ') << prompt;
+}
+
+void LogManager::GoToXY(int x, int y)
+{
+    COORD pos = { static_cast<SHORT>(x), static_cast<SHORT>(y) };
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+}
+
+void LogManager::ClearScreen()
+{
+    system("cls");
+}
+
+void LogManager::DrawBattleUI()
+{
+    ClearScreen();
+
+    const int width = 100;
+    const int height = 30;
+
+    // 바깥 테두리
+    for (int x = 0; x < width; x++)
+    {
+        GoToXY(x, 0);
+        std::cout << "=";
+        GoToXY(x, height - 1);
+        std::cout << "=";
+    }
+
+    for (int y = 0; y < height; y++)
+    {
+        GoToXY(0, y);
+        std::cout << "|";
+        GoToXY(width - 1, y);
+        std::cout << "|";
+    }
+
+    // 왼쪽 / 오른쪽 구분선
+    for (int y = 1; y < height - 1; y++)
+    {
+        GoToXY(41, y);
+        std::cout << "|";
+    }
+
+    // 왼쪽 위 / 아래 구분선
+    for (int x = 1; x < 41; x++)
+    {
+        GoToXY(x, 15);
+        std::cout << "-";
+    }
+
+    // 제목
+    GoToXY(2, 1);
+    std::cout << "[ 배틀 로그 ]";
+
+    GoToXY(2, 16);
+    std::cout << "[ 정보 ]";
+
+    GoToXY(46, 1);
+    std::cout << "[ 몬스터 / 전투 화면 ]";
+}
+
+void LogManager::PrintBattleLog(const std::string& message, int line)
+{
+    GoToXY(2, 3 + line);
+    std::cout << "                                "; 
+    GoToXY(2, 3 + line);
+    std::cout << message;
+}
+
+void LogManager::PrintInfoBox(const std::string& message, int line)
+{
+    GoToXY(2, 18 + line);
+    std::cout << "                                ";
+    GoToXY(2, 18 + line);
+    std::cout << message;
+}
+
+void LogManager::PrintMonsterBox(const std::string& message, int line)
+{
+    GoToXY(46, 3 + line);
+    std::cout << "                                                    ";
+    GoToXY(46, 3 + line);
+    std::cout << message;
+}
+
+void LogManager::PrintPlayerInfo(const std::string& name, int hp, int maxHP, int att, int def, int spd)
+{
+    PrintInfoBox("이름 : " + name, 0);
+    PrintInfoBox("HP : " + std::to_string(hp) + " / " + std::to_string(maxHP), 1);
+    PrintInfoBox("공격력 : " + std::to_string(att), 2);
+    PrintInfoBox("방어력 : " + std::to_string(def), 3);
+    PrintInfoBox("속도 : " + std::to_string(spd), 4);
+}
+
+void LogManager::PrintMonsterInfo(const std::string& name, int hp, int maxHP, int att, int def, int spd)
+{
+    PrintMonsterBox("이름 : " + name, 0);
+    PrintMonsterBox("HP : " + std::to_string(hp) + " / " + std::to_string(maxHP), 1);
+    PrintMonsterBox("공격력 : " + std::to_string(att), 2);
+    PrintMonsterBox("방어력 : " + std::to_string(def), 3);
+    PrintMonsterBox("속도 : " + std::to_string(spd), 4);
+}
+
+void LogManager::PrintBattleMenuUI()
+{
+    GoToXY(2, 26);
+    std::cout << "1. 공격   2. 가방   3. 도망가기          ";
+
+    GoToXY(2, 27);
+    std::cout << "선택 :                    ";
 }

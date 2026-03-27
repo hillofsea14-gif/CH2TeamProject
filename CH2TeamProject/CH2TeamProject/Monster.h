@@ -19,6 +19,7 @@ public:
 
     void printcurrentstatus() const;
 
+    virtual void Draw() const = 0;
 
     // Getter()
     std::string GetName() const;

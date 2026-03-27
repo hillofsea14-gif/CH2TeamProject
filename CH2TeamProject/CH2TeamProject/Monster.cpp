@@ -4,6 +4,8 @@
 
 #include "Monster.h"
 #include "Character.h"
+#include "Logmanager.h"
+
 
 
 Monster::Monster(std::string InName)
@@ -14,27 +16,17 @@ Monster::Monster(std::string InName)
 
 void Monster::attack(Character& character, Monster& monster)
 {
-    std::cout << "---------------------------------------" << std::endl;
-    std::cout << name << "이(가) " << character.GetName() << "을(를) 공격합니다!!" << std::endl;
-    Dam = Att - character.GetDef();                       // [한길] 일단 공격력에서 방어력을 뺀 값으로 딜이 들어가게 함.
+   Dam = Att - character.GetDef();                       // [한길] 일단 공격력에서 방어력을 뺀 값으로 딜이 들어가게 함.
     if (Dam < 0)
     {
         Dam = 0;
-    }                        //  [성윤] 방어력이 공격력보다 높을 때, 데미지가 음수가 되는 것을 방지.
-    std::cout << Dam << "만큼의 피해를 주었습니다." << std::endl;
-    std::cout << "---------------------------------------\n" << std::endl;
-
+    }  
     character.takeDamage(monster);
 }
 
 void Monster::takeDamage(Character& character)
 {
-    std::cout << "---------------------------------------" << std::endl;
-    std::cout << "몬스터 " << name << "이(가) " << character.GetName()
-        << "에게 " << character.GetDam() << "만큼의 피해를 입었습니다." << std::endl;
     SetCurrentHP(CurrentHP - character.GetDam());
-    std::cout << "현재 " << name << "의 남은 체력은 " << CurrentHP << "/" << MaxHP << " 입니다." << std::endl;
-    std::cout << "---------------------------------------\n" << std::endl;
 }
 
 void Monster::printcurrentstatus() const
