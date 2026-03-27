@@ -4,7 +4,6 @@
 #include "LogManager.h"
 
 Character::Character(std::string InName)
-    : name(InName), CurrentHP(100), MaxHP(100), Def(10), Att(20), Spd(5), Dam(0)
     : name(InName), CurrentHP(100), MaxHP(100), Def(10), Att(20), Spd(5), Dam(0), Gold(0)
 {
     LevelComp = new LevelComponent();
@@ -57,9 +56,6 @@ void Character::EarnExp(float Amount)
     }
 }
 
-<<<<<<< HEAD
-=======
-
 void Character::EarnGold(Monster& monster)
 {
     Gold += monster.GetGivingGold();
@@ -67,7 +63,6 @@ void Character::EarnGold(Monster& monster)
     std::cout << "현재 소지 Gold : " << Gold << std::endl;
 }
 
->>>>>>> dbc22872bc39443b3a4da41e6d86b191436399b7
 void Character::ShowItems() const
 {
     // 정보창 영역 초기화 느낌으로 덮어쓰기
