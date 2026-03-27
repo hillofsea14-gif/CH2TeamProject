@@ -26,7 +26,9 @@ public:
     // Getter()
     std::string GetName() const;
 
-    int GetHP() const;
+    int GetCurrentHP() const;
+
+    int GetMaxHP() const;
 
     int GetDef() const;
 
@@ -40,7 +42,9 @@ public:
     // Setter()
     void SetName(std::string InName);
 
-    void SetHP(int InHP);
+    void SetCurrentHP(int InCurrentHP);
+
+    void SetMaxHP(int InMaxHP);
 
     void SetDef(int InDef);
 
@@ -59,7 +63,8 @@ public:
 private:
     std::vector<Item> items;
     std::string name;
-    int HP;
+    int CurrentHP;
+    int MaxHP;
     int Def;
     int Att;
     int Spd;

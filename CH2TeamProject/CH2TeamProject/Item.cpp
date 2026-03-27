@@ -35,11 +35,11 @@ bool Item::Use(Character& character)
         return false;
     }
 
-    character.SetHP(character.GetHP() + healAmount);
+    character.SetCurrentHP(character.GetCurrentHP() + healAmount);
 
     std::cout << name << " 사용!" << std::endl;
     std::cout << healAmount << "만큼 회복했습니다." << std::endl;
-    std::cout << "현재 HP : " << character.GetHP() << std::endl;
+    std::cout << "현재 HP : " << character.GetCurrentHP() << "/" << character.GetMaxHP() << std::endl;
 
     count--;
     return true;

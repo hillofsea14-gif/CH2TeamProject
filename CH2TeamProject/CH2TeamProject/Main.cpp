@@ -57,14 +57,14 @@ void Battle(Character& character, Monster& monster)
         LogManager::PrintMessage("상대가 더 빠릅니다. 공격권이 상대에게 넘어갑니다.");
         MAttack(character, monster);
 
-        if (character.GetHP() <= 0)
+        if (character.GetCurrentHP() <= 0)
         {
             LogManager::PrintMessage("캐릭터가 사망하였습니다.");
             return;
         }
     }
 
-    while (character.GetHP() > 0 && monster.GetHP() > 0)
+    while (character.GetCurrentHP() > 0 && monster.GetHP() > 0)
     {
         LogManager::PrintPlayerTurnMenu();
 
@@ -109,7 +109,7 @@ void Battle(Character& character, Monster& monster)
             MAttack(character, monster);
         }
 
-        if (character.GetHP() <= 0)
+        if (character.GetCurrentHP() <= 0)
         {
             LogManager::PrintMessage("캐릭터가 사망하였습니다.");
             break;

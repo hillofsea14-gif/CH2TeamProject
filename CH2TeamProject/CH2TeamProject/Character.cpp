@@ -5,7 +5,7 @@
 #include "Item.h"
 
 Character::Character(std::string InName)
-    : name(InName), HP(100), Def(10), Att(20), Spd(5), Dam(0)
+    : name(InName), CurrentHP(100), MaxHP(100), Def(10), Att(20), Spd(5), Dam(0)
 {
     // [상진] 객체 생성 시 레벨 컴포넌트 동적 할당
     LevelComp = new LevelComponent();
@@ -44,12 +44,12 @@ void Character::takeDamage(Monster& monster)
     std::cout << "---------------------------------------" << std::endl;
     std::cout << "플레이어 " << name << "이(가) " << monster.GetName()
         << "에게 " << monster.GetDam() << "만큼의 피해를 입었습니다." << std::endl;
-    HP -= monster.GetDam();
-    if (HP < 0)                                      // 체력이 0보다 아래로 떨어지는 것 방지.
+    SetCurrentHP(CurrentHP - monster.GetDam());
+    if (CurrentHP < 0)                                     
     {
-        HP = 0;
+        CurrentHP = 0;
     }
-    std::cout << "현재 플레이어 " << name << "의 남은 체력은 " << HP << " 입니다." << std::endl;
+    std::cout << "현재 플레이어 " << name << "의 남은 체력은 " << CurrentHP << "/" << MaxHP << " 입니다." << std::endl;
     std::cout << "---------------------------------------\n" << std::endl;
 }
 
@@ -58,7 +58,7 @@ void Character::printcurrentstatus() const
     std::cout << "-----------Current Status: -----------\n";
     std::cout << "플레이어 " << name << "의 현재 상태입니다." << std::endl;
     std::cout << "Level : " << LevelComp->GetCurrentLevel() << std::endl;     // [한길] 레벨 출력 추가
-    std::cout << "HP : " << HP << std::endl;
+    std::cout << "HP : " << CurrentHP << "/" << MaxHP << std::endl;
     std::cout << "Def : " << Def << std::endl;
     std::cout << "Att : " << Att << std::endl;
     std::cout << "Spd : " << Spd << std::endl;
@@ -116,9 +116,14 @@ std::string Character::GetName() const
     return name;
 }
 
-int Character::GetHP() const
+int Character::GetCurrentHP() const
 {
-    return HP;
+    return CurrentHP;
+}
+
+int Character::GetMaxHP() const
+{
+    return MaxHP;
 }
 
 int Character::GetDef() const
@@ -150,9 +155,34 @@ void Character::SetName(std::string InName)
     return;
 }
 
-void Character::SetHP(int InHP)
+void Character::SetCurrentHP(int InCurrentHP)
 {
-    HP = InHP;
+    CurrentHP = InCurrentHP;
+
+    if (CurrentHP > MaxHP)
+    {
+        CurrentHP = MaxHP;
+    }
+
+    if (CurrentHP < 0)
+        {
+            CurrentHP = 0;
+    }
+}
+
+void Character::SetMaxHP(int InMaxHP)
+{
+    MaxHP = InMaxHP;
+
+    if (MaxHP < 1)
+    {
+        MaxHP = 1;
+    }
+
+    if (CurrentHP > MaxHP)
+    {
+        CurrentHP = MaxHP;
+    }
 }
 
 void Character::SetDef(int InDef)
