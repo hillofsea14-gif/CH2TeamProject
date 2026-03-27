@@ -26,6 +26,16 @@ public:
     static void PrintPlayerInfo(const std::string& name, int hp, int maxHP, int att, int def, int spd);
     static void PrintMonsterInfo(const std::string& name, int hp, int maxHP, int att, int def, int spd);
     static void PrintBattleMenuUI();
-
+    static void ClearRightPanel();
+    static void DrawMainMenuInRightPanel();
+    static void DrawPlayerStatusInRightPanel(
+        const std::string& name,
+        int hp,
+        int maxHP,
+        int att,
+        int def,
+        int spd,
+        int gold
+    );
 
 };

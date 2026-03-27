@@ -60,13 +60,58 @@ void LogManager::PrintEnemyTurn()
 
 void LogManager::PrintMainMenu()
 {
-    std::cout << "\n========= 메뉴 =========" << std::endl;
-    std::cout << "1. 전투 입장" << std::endl;
-    std::cout << "2. 스텟창" << std::endl;
-    std::cout << "3. 미정" << std::endl;
-    std::cout << "4. 미정" << std::endl;
-    std::cout << "5. 게임 종료" << std::endl;
-    std::cout << "선택: ";
+    ClearScreen();
+
+    const int width = 60;
+    const int height = 15;
+
+    // 윗줄 / 아랫줄
+    for (int x = 0; x < width; x++)
+    {
+        GoToXY(x, 0);
+        std::cout << "=";
+        GoToXY(x, height - 1);
+        std::cout << "=";
+    }
+
+    // 양옆줄
+    for (int y = 0; y < height; y++)
+    {
+        GoToXY(0, y);
+        std::cout << "|";
+        GoToXY(width - 1, y);
+        std::cout << "|";
+    }
+
+    // 제목
+    GoToXY(22, 1);
+    std::cout << "[ 메인 메뉴 ]";
+
+    // 메뉴 목록
+    GoToXY(4, 4);
+    std::cout << "1. 전투 입장";
+
+    GoToXY(4, 5);
+    std::cout << "2. 스텟창";
+
+    GoToXY(4, 6);
+    std::cout << "3. 인벤토리";
+
+    GoToXY(4, 7);
+    std::cout << "4. 미정";
+
+    GoToXY(4, 8);
+    std::cout << "5. 게임 종료";
+
+    // 입력칸 구분선
+    for (int x = 1; x < width - 1; x++)
+    {
+        GoToXY(x, 11);
+        std::cout << "-";
+    }
+
+    GoToXY(4, 12);
+    std::cout << "선택 : ";
 }
 
 void LogManager::PrintStartScreen()
@@ -218,4 +263,73 @@ void LogManager::PrintBattleMenuUI()
 
     GoToXY(2, 27);
     std::cout << "선택 :                    ";
+}
+
+void LogManager::ClearRightPanel()
+{
+    for (int y = 2; y < 28; y++)
+    {
+        GoToXY(44, y);
+        std::cout << "                                                      ";
+    }
+}
+
+void LogManager::DrawMainMenuInRightPanel()
+{
+    ClearRightPanel();
+
+    GoToXY(55, 3);
+    std::cout << "[ 메인 메뉴 ]";
+
+    GoToXY(48, 7);
+    std::cout << "1. 전투 입장";
+
+    GoToXY(48, 9);
+    std::cout << "2. 스텟창";
+
+    GoToXY(48, 11);
+    std::cout << "3. 인벤토리";
+
+    GoToXY(48, 13);
+    std::cout << "4. 미정";
+
+    GoToXY(48, 15);
+    std::cout << "5. 게임 종료";
+
+    GoToXY(48, 20);
+    std::cout << "선택 : ";
+}
+
+void LogManager::DrawPlayerStatusInRightPanel(
+    const std::string& name,
+    int hp, int maxHP,
+    int att, int def, int spd,
+    int gold
+)
+{
+    ClearRightPanel();
+
+    GoToXY(53, 3);
+    std::cout << "[ 플레이어 스텟 ]";
+
+    GoToXY(48, 7);
+    std::cout << "이름 : " << name;
+
+    GoToXY(48, 11);
+    std::cout << "HP : " << hp << " / " << maxHP;
+
+    GoToXY(48, 13);
+    std::cout << "공격력 : " << att;
+
+    GoToXY(48, 15);
+    std::cout << "방어력 : " << def;
+
+    GoToXY(48, 17);
+    std::cout << "속도 : " << spd;
+
+    GoToXY(48, 19);
+    std::cout << "Gold : " << gold << " G";
+
+    GoToXY(48, 23);
+    std::cout << "엔터를 누르면 돌아갑니다...";
 }

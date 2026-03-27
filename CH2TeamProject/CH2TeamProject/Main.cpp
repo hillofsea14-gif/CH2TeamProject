@@ -9,6 +9,24 @@
 #include "Slime.h"
 #include "LogManager.h"
 
+void ShowMainScreen(Character& character)
+{
+    LogManager::DrawBattleUI();
+
+    LogManager::PrintBattleLog("집으로 돌아가기 위한 여정", 0);
+    LogManager::PrintBattleLog("행동을 선택하세요.", 1);
+
+    LogManager::PrintPlayerInfo(
+        character.GetName(),
+        character.GetCurrentHP(),
+        character.GetMaxHP(),
+        character.GetAtt(),
+        character.GetDef(),
+        character.GetSpd()
+    );
+    LogManager::DrawMainMenuInRightPanel();
+}
+
 bool IsPlayerFast(Character& character, Monster& monster)
 {
     int A = character.GetSpd();
@@ -209,7 +227,8 @@ int main()
 
     while (true)
     {
-        LogManager::PrintMainMenu();
+        ShowMainScreen(player);
+        LogManager::GoToXY(54, 20); 
         std::cin >> menu;
 
         switch (menu)
@@ -220,13 +239,39 @@ int main()
 
             Slime monster;
             Battle(player, monster);
+
+            LogManager::ClearScreen();
             break;
         }
 
         case 2:
         {
-            LogManager::PrintMessage("스텟창을 엽니다.");
-            player.printcurrentstatus();
+            LogManager::DrawBattleUI();
+
+            LogManager::PrintBattleLog("스텟창을 엽니다.", 0);
+            LogManager::PrintBattleLog("플레이어 정보를 확인합니다.", 1);
+
+            LogManager::PrintPlayerInfo(
+                player.GetName(),
+                player.GetCurrentHP(),
+                player.GetMaxHP(),
+                player.GetAtt(),
+                player.GetDef(),
+                player.GetSpd()
+            );
+
+            LogManager::DrawPlayerStatusInRightPanel(
+                player.GetName(),
+                player.GetCurrentHP(),
+                player.GetMaxHP(),
+                player.GetAtt(),
+                player.GetDef(),
+                player.GetSpd(),
+                player.GetGold()
+            );
+
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cin.get();
             break;
         }
 

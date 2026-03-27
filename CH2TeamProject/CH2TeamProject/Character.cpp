@@ -39,12 +39,12 @@ void Character::printcurrentstatus() const
 {
     std::cout << "-----------Current Status: -----------\n";
     std::cout << "플레이어 " << name << "의 현재 상태입니다." << std::endl;
-    std::cout << "Level : " << LevelComp->GetCurrentLevel() << std::endl;
+
     std::cout << "HP : " << CurrentHP << "/" << MaxHP << std::endl;
     std::cout << "Def : " << Def << std::endl;
     std::cout << "Att : " << Att << std::endl;
     std::cout << "Spd : " << Spd << std::endl;
-    std::cout << "Gold : " << Gold << "G." << std::endl;     // [한길] 추가
+    std::cout << "Gold : " << Gold << "G." << std::endl;
     std::cout << "---------------------------------------\n" << std::endl;
 }
 
