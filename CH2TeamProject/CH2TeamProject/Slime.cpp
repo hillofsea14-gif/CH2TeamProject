@@ -7,13 +7,22 @@
 #include "LogManager.h"
 
 
-Slime::Slime() : Monster("슬라임")
+Slime::Slime(int playerLevel) : Monster("슬라임")
 {
-    SetMaxHP(30);
-    SetCurrentHP(30);
-    SetAtt(5);
-    SetDef(2);
-    SetSpd(3);
+    int baseHP = 40 + (playerLevel * 1.1); 
+    int baseAtt = 15 + (playerLevel * 1.1);  
+
+    int randomHP = rand() % 21;  
+    int randomAtt = rand() % 6;  
+
+    SetLvl(1); 
+    SetGivingGold(30); 
+    SetGivingExp(25); 
+    SetMaxHP(baseHP + randomHP); 
+    SetCurrentHP(baseHP + randomHP); 
+    SetAtt(baseAtt + randomAtt);
+    SetDef(5);
+    SetSpd(4);
 }
 void Slime::Draw() const
     {

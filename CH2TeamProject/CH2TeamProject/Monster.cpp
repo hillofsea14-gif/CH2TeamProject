@@ -131,3 +131,18 @@ void Monster::SetSpd(int InSpd)
 {
     Spd = InSpd;
 }
+
+void Monster::SetGivingGold(int InGivingGold) // 3.27 [승민] setter 함수 구현.
+{
+    GivingGold = InGivingGold;  
+}
+
+void Monster::SetGivingExp(int InGivingExp)// 3.27 [승민] setter 함수 구현.
+{
+    GivingExp = InGivingExp;
+}       
+
+void Monster::SetLvl(int InLvl) // 3.27 [승민] setter 함수 구현.
+{
+    Lvl = InLvl;
+}

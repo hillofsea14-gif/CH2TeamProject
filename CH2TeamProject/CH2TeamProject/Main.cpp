@@ -7,7 +7,16 @@
 #include "Character.h"
 #include "Monster.h"
 #include "LevelComponent.h"
-#include "Slime.h"
+#include "Slime.h" // [승민] 몬스터 헤더파일 추가```
+#include "Snake.h"
+#include "Bear.h"
+#include "Spider.h"
+#include "Wolf.h"
+#include "WildCat.h"
+#include "Gorani.h"
+#include "BigNuguri.h"
+#include "WildBoar.h"
+#include "Tiger.h" // [승민]```
 #include "LogManager.h"
 #include "Shop.h"
 
@@ -278,6 +287,7 @@ int main()
     std::string name;
     int menu = 0;
 
+    LevelComponent* MyLevel = new LevelComponent(); // [승민] 플레이어 레벨 객체 생성
     LogManager::PrintStartScreen();
     std::cin >> name;
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -305,7 +315,12 @@ int main()
         {
         case 1:
         {
-            Slime monster;
+
+           
+            LogManager::PrintMessage("전투에 입장합니다.");
+
+            srand(time(NULL));
+            Wolf monster(MyLevel->GetCurrentLevel()); // [승민] 몬스터 생성시 플레이어 레벨을 매개변수로 받아야함.
             Battle(player, monster);
             LogManager::ClearScreen();
             break;

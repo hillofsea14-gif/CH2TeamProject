@@ -1,11 +1,12 @@
-﻿// Slime.h
+﻿//Snake.h
 
 #pragma once
 #include "Monster.h"
 
-class Slime : public Monster
+class Snake:public Monster
 {
 public:
-    Slime(int playerLevel);
+    Snake(int playerLevel);
     void Draw() const override;
 };
+

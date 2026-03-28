@@ -53,7 +53,11 @@ public:
 
     void SetSpd(int InSpd);
 
+    void SetGivingGold(int InGivingGold); // 3.27 [승민] 몬스터 마다 골드량 변경을 위한 setter 함수 추가
 
+    void SetGivingExp(int InGivingExp); // 3.27 [승민] 몬스터 마다 경험치량 변경을 위한 setter 함수 추가
+
+    void SetLvl(int InLvl); // 3.27 [승민] 몬스터 마다 레벨설정을 위한 setter 함수 추가.   
 
 private:
     std::string name;
