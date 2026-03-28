@@ -2,7 +2,7 @@
 #include <string>
 #include <windows.h>
 #include "LogManager.h"
-
+#include "Item.h"
 
 void LogManager::PrintLine()
 {
@@ -92,10 +92,10 @@ void LogManager::PrintMainMenu()
     std::cout << "1. 전투 입장";
 
     GoToXY(4, 5);
-    std::cout << "2. 스텟창";
+    std::cout << "2. 인벤토리";  //[한길] 수정.
 
     GoToXY(4, 6);
-    std::cout << "3. 인벤토리";
+    std::cout << "3. 포션 구매";  //[한길] 수정.
 
     GoToXY(4, 7);
     std::cout << "4. 미정";
@@ -256,7 +256,7 @@ void LogManager::PrintMonsterBox(const std::string& message, int line)
     std::cout << message;
 }
 
-void LogManager::PrintPlayerInfo(const std::string& name, int hp, int maxHP, int att, int def, int spd)
+void LogManager::PrintPlayerInfo(const std::string& name, int hp, int maxHP, int att, int def, int spd, int gold, const std::vector<std::shared_ptr<Item>>& items)  //[한길] 수정
 {
     ClearInfoArea();
 
@@ -265,6 +265,16 @@ void LogManager::PrintPlayerInfo(const std::string& name, int hp, int maxHP, int
     PrintInfoBox("공격력 : " + std::to_string(att), 2);
     PrintInfoBox("방어력 : " + std::to_string(def), 3);
     PrintInfoBox("속도 : " + std::to_string(spd), 4);
+    PrintInfoBox("골드 : " + std::to_string(gold), 5);
+    int line = 6;          // [한길] 6번 라인부터 아이템 목록 출력.
+    for (const auto& item : items)
+    {
+        if (line > 8) // 정보창 크기 제한이 있다면 방어 코드
+        {
+            break;
+        }
+        PrintInfoBox(item->GetName() + " : " + std::to_string(item->GetCount()) + "개", line++);
+    }
 }
 
 void LogManager::PrintMonsterInfo(const std::string& name, int hp, int maxHP, int att, int def, int spd)
@@ -305,10 +315,10 @@ void LogManager::DrawMainMenuInRightPanel()
     std::cout << "1. 전투 입장";
 
     GoToXY(48, 9);
-    std::cout << "2. 스텟창";
+    std::cout << "2. 인벤토리";  // [한길] 수정.
 
     GoToXY(48, 11);
-    std::cout << "3. 인벤토리";
+    std::cout << "3. 포션 구매";  // [한길] 수정.
 
     GoToXY(48, 13);
     std::cout << "4. 미정";

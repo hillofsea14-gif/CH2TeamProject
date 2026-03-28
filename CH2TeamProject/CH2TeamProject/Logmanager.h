@@ -1,5 +1,8 @@
 ﻿#pragma once
 #include <string>
+#include <vector>
+
+class Item;
 
 class LogManager
 {
@@ -23,7 +26,7 @@ public:
     static void PrintBattleLog(const std::string& message, int line);
     static void PrintInfoBox(const std::string& message, int line);
     static void PrintMonsterBox(const std::string& message, int line);
-    static void PrintPlayerInfo(const std::string& name, int hp, int maxHP, int att, int def, int spd);
+    static void PrintPlayerInfo(const std::string& name, int hp, int maxHP, int att, int def, int spd, int gold, const std::vector<std::shared_ptr<Item>>& items);
     static void PrintMonsterInfo(const std::string& name, int hp, int maxHP, int att, int def, int spd);
     static void PrintBattleMenuUI();
     static void ClearRightPanel();

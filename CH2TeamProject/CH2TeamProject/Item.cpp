@@ -1,4 +1,6 @@
-﻿#include "Item.h"
+﻿// Item.cpp
+
+#include "Item.h"
 #include "Character.h"
 
 Item::Item(std::string InName, int InHealAmount, int InCount)
@@ -37,4 +39,16 @@ bool Item::Use(Character& character)
 
     count--;
     return true;
+}
+
+MiniPotion::MiniPotion(int InCount)  // [한길] 추가.
+    : Item("포션(소)", 100, InCount)
+{
+
+}
+
+BigPotion::BigPotion(int InCount)
+    : Item("포션(대)", 200, InCount)
+{
+
 }

@@ -9,6 +9,7 @@
 #include "LevelComponent.h"
 #include "Slime.h"
 #include "LogManager.h"
+#include "Shop.h"
 
 void WaitForNext()
 {
@@ -33,7 +34,9 @@ void ShowMainScreen(Character& character)
         character.GetMaxHP(),
         character.GetAtt(),
         character.GetDef(),
-        character.GetSpd()
+        character.GetSpd(),
+        character.GetGold(),
+        character.GetItems()  // [한길] 이 함수가 출력되는 곳에 모두 GetItem() 함수 추가.
     );
     LogManager::DrawMainMenuInRightPanel();
 }
@@ -97,7 +100,9 @@ void RefreshBattleScreen(Character& character, Monster& monster)
         character.GetMaxHP(),
         character.GetAtt(),
         character.GetDef(),
-        character.GetSpd()
+        character.GetSpd(),
+        character.GetGold(),
+        character.GetItems()  // [한길] 이 함수가 출력되는 곳에 모두 GetItem() 함수 추가.
     );
 
     LogManager::PrintMonsterInfo(
@@ -279,7 +284,10 @@ int main()
     LogManager::PrintMessage("환영합니다, " + name + "님!");
 
     Character player(name);
-    player.AddItem(Item("회복약", 50, 3));
+    auto InitializeMiniPotion = std::make_shared<MiniPotion>(3);     // [한길] 미니포션 3개 가진 객체를 생성하고 포인터를 반환함.
+    auto InitializeBigPotion = std::make_shared<BigPotion>(0);   // [한길] 빅포션 초기화.
+    player.AddItem(InitializeMiniPotion);                      // [한길] 추가.
+    player.AddItem(InitializeBigPotion);                      // [한길] 일단 추가. 목록에 0개라고 뜸.
 
     while (true)
     {
@@ -305,41 +313,28 @@ int main()
 
         case 2:
         {
-            LogManager::DrawBattleUI();
-
-            LogManager::ClearBattleLogArea();
-            LogManager::PrintBattleLog("스텟창을 엽니다.", 0);
-            LogManager::PrintBattleLog("플레이어 정보를 확인합니다.", 1);
-
-            LogManager::PrintPlayerInfo(
-                player.GetName(),
-                player.GetCurrentHP(),
-                player.GetMaxHP(),
-                player.GetAtt(),
-                player.GetDef(),
-                player.GetSpd()
-            );
-
-            LogManager::DrawPlayerStatusInRightPanel(
-                player.GetName(),
-                player.GetCurrentHP(),
-                player.GetMaxHP(),
-                player.GetAtt(),
-                player.GetDef(),
-                player.GetSpd(),
-                player.GetGold()
-            );
-
-            WaitForNext();
+            LogManager::PrintMessage("인벤토리 추가 예정.");
             break;
         }
 
         case 3:
         {
-            LogManager::DrawBattleUI();
-            LogManager::ClearBattleLogArea();
-            LogManager::PrintBattleLog("미정입니다.", 0);
-            WaitForNext();
+            LogManager::PrintMessage("상점에 입장합니다");
+            Shop::ShowShopMenu();
+            int input;
+            std::cin >> input;
+            if (input == 1)
+            {
+                Shop::BuyItem(player, input);
+            }
+            else if (input == 2)
+            {
+                Shop::BuyItem(player, input);
+            }
+            else
+            {
+                Shop::BuyItem(player, input);
+            }
             break;
         }
 

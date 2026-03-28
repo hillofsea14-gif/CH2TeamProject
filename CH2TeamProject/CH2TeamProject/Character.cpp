@@ -69,8 +69,8 @@ void Character::ShowItems() const
         {
             LogManager::PrintInfoBox(
                 std::to_string(i + 1) + ". " +
-                items[i].GetName() + " (" +
-                std::to_string(items[i].GetCount()) + "개)",
+                items[i]->GetName() + " (" +         //[한길] 수정 items[index]가 이제 포인터이므로.대신->사용.
+                std::to_string(items[i]->GetCount()) + "개)",
                 i + 1
             );
         }
@@ -87,7 +87,12 @@ bool Character::UseItem(int index)
         return false;
     }
 
-    return items[index].Use(*this);
+    return items[index]->Use(*this);
+}
+
+void Character::SetGold(int InGold)    // [한길] 상점 위해 추가.
+{
+    Gold = InGold;
 }
 
 
@@ -130,6 +135,11 @@ int Character::GetDam() const
 int Character::GetGold() const
 {
     return Gold;
+}
+
+const std::vector<std::shared_ptr<Item>>& Character::GetItems() const  // [한길] 아이템 출력 위한 Getter 추가.
+{
+    return items;
 }
 
 // Setter()
@@ -183,7 +193,19 @@ void Character::SetSpd(int InSpd)
     Spd = InSpd;
 }
 
-void Character::AddItem(const Item& item)
+void Character::AddItem(std::shared_ptr<Item> newItem) //[한길] 아이템 더하는데에 사용.
 {
-    items.push_back(item);
+    // 가방(items)에 똑같은 이름의 아이템이 있는지 찾기.
+    for (auto& inventoryItem : items)
+    {
+        if (inventoryItem->GetName() == newItem->GetName())
+        {
+            // 같은 이름의 아이템을 찾았다면, 개수(Count)만 더하기.
+            inventoryItem->AddCount(newItem->GetCount());
+
+            // 개수를 합쳤으니 함수를 종료. (새로 추가하지 않음)
+            return;
+        }
+    }
+    items.push_back(newItem);
 }

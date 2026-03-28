@@ -36,7 +36,7 @@ public:
 
     int GetLvl() const;
 
-    int GetGivingExp() const;   // [한길] 시스템 변경으로 자료형 변경.
+    float GetGivingExp() const;   // [한길] 시스템 변경으로 자료형 변경.
 
     int GetGivingGold() const;   // [한길] 기빙골드 겟터 추가.
 

@@ -7,6 +7,7 @@
 #include "LevelComponent.h"
 #include "Item.h"
 #include <vector>
+#include <memory> // [한길] shared_ptr 공구통.
 
 
 class Character
@@ -19,11 +20,11 @@ public:
 
     void takeDamage(Monster& monster);
 
-    void printcurrentstatus() const;   // [한길] 멤버변수로 LevelComp가 생겨서 매개변수 삭제함.
+    // void printcurrentstatus() const; [한길] 해당 함수가 삭제된것 같아 주석처리함.
 
-    void EarnExp(float Amount);     // [한길] Amount의 인자값이 될 몬스터의 givingExp를 float으로 수정함.
+    void EarnExp(float Amount);
 
-    void EarnGold(Monster& monster);  // [한길] 골드 획득 함수.
+    void EarnGold(Monster& monster);
 
     // Getter()
     std::string GetName() const;
@@ -40,7 +41,9 @@ public:
 
     int GetDam() const;
 
-    int GetGold() const;   // [한길] 골드 겟터 추가.
+    int GetGold() const;
+
+    const std::vector<std::shared_ptr<Item>>& GetItems() const; // [한길] 아이템 출력 위한 Getter 추가.
 
 
     // Setter()
@@ -56,16 +59,18 @@ public:
 
     void SetSpd(int InSpd);
 
-    void AddItem(const Item& item);
+    void AddItem(std::shared_ptr<Item> newItem); // [한길] 변경
 
     void ShowItems() const;
 
     bool UseItem(int index);
 
+    void SetGold(int InGold);   // [한길] 상점 위해 추가.
+
 
 
 private:
-    std::vector<Item> items;
+    std::vector<std::shared_ptr<Item>> items;   // [한길] 추가 여러가지 포션 클래스를 받아주기 위해 포인터를 모으는 백터를 만듦.
     std::string name;
     int CurrentHP;
     int MaxHP;
@@ -73,7 +78,7 @@ private:
     int Att;
     int Spd;
     int Dam;
-    int Gold;    // [한길] 골드 추가.
+    int Gold;
     LevelComponent* LevelComp;
 };
 
