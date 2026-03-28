@@ -216,30 +216,50 @@ void LogManager::DrawBattleUI()
 
 void LogManager::PrintBattleLog(const std::string& message, int line)
 {
+    std::string output = message;
+
+    if (output.size() > 36)
+    {
+        output = output.substr(0, 36);
+    }
+
     GoToXY(2, 3 + line);
-    std::cout << "                                "; 
+    std::cout << "                                      ";
     GoToXY(2, 3 + line);
-    std::cout << message;
+    std::cout << output;
+    GoToXY(41, 3 + line);
+    std::cout << "|";
 }
 
 void LogManager::PrintInfoBox(const std::string& message, int line)
 {
+    std::string output = message;
+
+    if (output.size() > 36)
+    {
+        output = output.substr(0, 36);
+    }
+
     GoToXY(2, 18 + line);
-    std::cout << "                                ";
+    std::cout << "                                      ";
     GoToXY(2, 18 + line);
-    std::cout << message;
+    std::cout << output;
+    GoToXY(41, 18 + line);
+    std::cout << "|";
 }
 
 void LogManager::PrintMonsterBox(const std::string& message, int line)
 {
     GoToXY(46, 3 + line);
-    std::cout << "                                                    ";
+    std::cout << "                                                ";
     GoToXY(46, 3 + line);
     std::cout << message;
 }
 
 void LogManager::PrintPlayerInfo(const std::string& name, int hp, int maxHP, int att, int def, int spd)
 {
+    ClearInfoArea();
+
     PrintInfoBox("이름 : " + name, 0);
     PrintInfoBox("HP : " + std::to_string(hp) + " / " + std::to_string(maxHP), 1);
     PrintInfoBox("공격력 : " + std::to_string(att), 2);
@@ -300,12 +320,7 @@ void LogManager::DrawMainMenuInRightPanel()
     std::cout << "선택 : ";
 }
 
-void LogManager::DrawPlayerStatusInRightPanel(
-    const std::string& name,
-    int hp, int maxHP,
-    int att, int def, int spd,
-    int gold
-)
+void LogManager::DrawPlayerStatusInRightPanel(const std::string& name, int hp, int maxHP, int att, int def, int spd, int gold)
 {
     ClearRightPanel();
 
@@ -332,4 +347,26 @@ void LogManager::DrawPlayerStatusInRightPanel(
 
     GoToXY(48, 23);
     std::cout << "엔터를 누르면 돌아갑니다...";
+}
+
+void LogManager::ClearBattleLogArea()
+{
+    for (int y = 3; y <= 14; y++)
+    {
+        GoToXY(2, y);
+        std::cout << "                                      ";
+        GoToXY(41, y);
+        std::cout << "|";
+    }
+}
+
+void LogManager::ClearInfoArea()
+{
+    for (int y = 18; y <= 25; y++)
+    {
+        GoToXY(2, y);
+        std::cout << "                                      ";
+        GoToXY(41, y);
+        std::cout << "|";
+    }
 }

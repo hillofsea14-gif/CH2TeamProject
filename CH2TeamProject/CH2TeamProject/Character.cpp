@@ -35,19 +35,6 @@ void Character::takeDamage(Monster& monster)
     SetCurrentHP(CurrentHP - monster.GetDam());
 }
 
-void Character::printcurrentstatus() const
-{
-    std::cout << "-----------Current Status: -----------\n";
-    std::cout << "플레이어 " << name << "의 현재 상태입니다." << std::endl;
-
-    std::cout << "HP : " << CurrentHP << "/" << MaxHP << std::endl;
-    std::cout << "Def : " << Def << std::endl;
-    std::cout << "Att : " << Att << std::endl;
-    std::cout << "Spd : " << Spd << std::endl;
-    std::cout << "Gold : " << Gold << "G." << std::endl;
-    std::cout << "---------------------------------------\n" << std::endl;
-}
-
 void Character::EarnExp(float Amount)
 {
     if (LevelComp != nullptr)
@@ -59,8 +46,6 @@ void Character::EarnExp(float Amount)
 void Character::EarnGold(Monster& monster)
 {
     Gold += monster.GetGivingGold();
-    std::cout << "\n몬스터 " << monster.GetName() << "을(를) 처치하여 " << monster.GetGivingGold() << " G. 를 획득하였습니다." << std::endl;
-    std::cout << "현재 소지 Gold : " << Gold << std::endl;
 }
 
 void Character::ShowItems() const

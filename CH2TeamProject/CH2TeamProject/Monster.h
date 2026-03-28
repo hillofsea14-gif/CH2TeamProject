@@ -17,8 +17,6 @@ public:
 
     void takeDamage(Character& character);
 
-    void printcurrentstatus() const;
-
     virtual void Draw() const = 0;
 
     // Getter()
@@ -38,7 +36,7 @@ public:
 
     int GetLvl() const;
 
-    float GetGivingExp() const;   // [한길] 시스템 변경으로 자료형 변경.
+    int GetGivingExp() const;   // [한길] 시스템 변경으로 자료형 변경.
 
     int GetGivingGold() const;   // [한길] 기빙골드 겟터 추가.
 

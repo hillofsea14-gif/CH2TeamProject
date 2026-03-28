@@ -141,7 +141,7 @@
     <ClInclude Include="Character.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="LevelComponent.h" />
-    <ClInclude Include="Logmanager.h" />
+    <ClInclude Include="LogManager.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="Slime.h" />
   </ItemGroup>

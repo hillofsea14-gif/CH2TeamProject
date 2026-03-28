@@ -35,7 +35,8 @@ public:
         int att,
         int def,
         int spd,
-        int gold
-    );
+        int gold);
+    static void ClearBattleLogArea();
+    static void ClearInfoArea();
 
 };
