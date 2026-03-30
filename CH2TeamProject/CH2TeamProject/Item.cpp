@@ -42,13 +42,13 @@ bool Item::Use(Character& character)
 }
 
 MiniPotion::MiniPotion(int InCount)  // [한길] 추가.
-    : Item("포션(소)", 100, InCount)
+    : Item("미니 포션", 100, InCount)  // [한길] 3.30 아이템 이름으로 찾기 기능 추가하며 이름 수정.
 {
 
 }
 
 BigPotion::BigPotion(int InCount)
-    : Item("포션(대)", 200, InCount)
+    : Item("대형 포션", 200, InCount)
 {
 
 }

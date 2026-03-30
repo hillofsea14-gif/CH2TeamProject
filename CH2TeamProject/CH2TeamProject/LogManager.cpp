@@ -95,7 +95,7 @@ void LogManager::PrintMainMenu()
     std::cout << "2. 인벤토리";  //[한길] 수정.
 
     GoToXY(4, 6);
-    std::cout << "3. 포션 구매";  //[한길] 수정.
+    std::cout << "3. 상점";  //[한길] 수정. 수정. 3.30
 
     GoToXY(4, 7);
     std::cout << "4. 미정";
@@ -319,7 +319,7 @@ void LogManager::DrawMainMenuInRightPanel()
     std::cout << "2. 인벤토리";  // [한길] 수정.
 
     GoToXY(48, 11);
-    std::cout << "3. 포션 구매";  // [한길] 수정.
+    std::cout << "3. 상점";  // [한길] 수정. 수정. 3.30
 
     GoToXY(48, 13);
     std::cout << "4. 미정";

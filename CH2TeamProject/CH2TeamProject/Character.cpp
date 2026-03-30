@@ -48,6 +48,12 @@ void Character::EarnGold(Monster& monster)
     Gold += monster.GetGivingGold();
 }
 
+// 개수가 0이 된 아이템을 리스트에서 완전히 제거
+void Character::RemoveItem(std::shared_ptr<Item> item)    //[한길] 3.30 추가. 
+{
+    items.erase(std::remove(items.begin(), items.end(), item), items.end());
+}
+
 void Character::ShowItems() const
 {
     // 정보창 영역 초기화 느낌으로 덮어쓰기
@@ -147,9 +153,24 @@ float Character::GetMaxExp() const
     return LevelComp->GetMaxExp();
 }
 
+int Character::GetLevel() const      // [한길] 3.30 추가
+{
+    return LevelComp->GetCurrentLevel();
+}
+
 const std::vector<std::shared_ptr<Item>>& Character::GetItems() const  // [한길] 아이템 출력 위한 Getter 추가.
 {
     return items;
+}
+
+std::shared_ptr<Item> Character::FindItemByName(const std::string& itemName) // [한길] 3.30 추가
+{
+    for (auto& item : items) {
+        if (item->GetName() == itemName) {
+            return item; // 찾으면 해당 스마트 포인터 반환
+        }
+    }
+    return nullptr; // 없으면 nullptr 반환
 }
 
 // Setter()

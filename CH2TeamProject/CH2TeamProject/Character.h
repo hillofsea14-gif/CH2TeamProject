@@ -26,6 +26,8 @@ public:
 
     void EarnGold(Monster& monster);
 
+    void RemoveItem(std::shared_ptr<Item> item);     // [한길] 3.30 추가
+
     // Getter()
     std::string GetName() const;
 
@@ -47,7 +49,11 @@ public:
 
     float GetMaxExp() const;
 
+    int GetLevel() const;   // [한길] 3.30 추가
+
     const std::vector<std::shared_ptr<Item>>& GetItems() const; // [한길] 아이템 출력 위한 Getter 추가.
+
+    std::shared_ptr<Item> FindItemByName(const std::string& itemName);    // [한길] 3.30 추가
 
 
     // Setter()

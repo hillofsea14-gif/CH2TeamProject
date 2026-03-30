@@ -316,7 +316,7 @@ int main()
             LogManager::PrintMessage("전투에 입장합니다.");
 
             srand(time(NULL));
-            Wolf monster(MyLevel->GetCurrentLevel()); // [승민] 몬스터 생성시 플레이어 레벨을 매개변수로 받아야함.
+            Wolf monster(player.GetLevel()); // [승민] 몬스터 생성시 플레이어 레벨을 매개변수로 받아야함.[한길] 3.30 캐릭터에 GetLevel 추가
             Battle(player, monster);
             LogManager::ClearScreen();
             break;
@@ -405,21 +405,52 @@ int main()
 
         case 3:
         {
-            LogManager::PrintMessage("상점에 입장합니다");
-            Shop::ShowShopMenu();
+            LogManager::PrintMessage("상점에 입장합니다");  //[한길] 3.30 수정.
+            Shop::ShowShopTopMenu();
 
-            int input = 0;
-            if (!(std::cin >> input))
+            int input;
+            std::cin >> input;
+
+            if (input == 1) // 구매 모드
             {
-                std::cin.clear();
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                LogManager::PrintMessage("숫자를 입력해주세요.");
-                WaitForNext();
-                break;
-            }
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                Shop::ShowShopBuyMenu();
+                int choice;
+                std::cin >> choice;
 
-            Shop::BuyItem(player, input);
+                // 구매 가능한 옵션(1, 2)인 경우에만 실행
+                if (choice == 1 || choice == 2)
+                {
+                    Shop::BuyItem(player, choice);
+                }
+                else
+                {
+                    LogManager::PrintMessage("잘못된 선택입니다.");
+                }
+            }
+            else if (input == 2) // 판매 모드
+            {
+                Shop::ShowShopSellMenu();
+                int choice;
+                std::cin >> choice;
+
+                // 판매 가능한 옵션인 경우에만 실행
+                if (choice == 1 || choice == 2)
+                {
+                    Shop::SellItem(player, choice);
+                }
+                else
+                {
+                    LogManager::PrintMessage("잘못된 선택입니다.");
+                }
+            }
+            else if (input == 0)
+            {
+                LogManager::PrintMessage("상점을 나갑니다.");
+            }
+            else
+            {
+                LogManager::PrintMessage("잘못된 입력입니다.");
+            }
             break;
         }
 
