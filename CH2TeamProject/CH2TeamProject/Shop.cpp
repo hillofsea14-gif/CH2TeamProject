@@ -5,10 +5,11 @@
 #include "LogManager.h" 
 #include <iostream>
 
-void Shop::ShowShopTopMenu()
+void Shop::ShowShopTopMenu(const Character& player)
 {
     // 정보창에 구매, 판매 선택.          [한길] 3.30 추가.
-    LogManager::PrintInfoBox("========= 중간 상점 =========", 0);
+    LogManager::GoToXY(2, 18);
+    std::cout << "============= 중간 상점 =============";
     LogManager::PrintInfoBox("1. 구매", 1);
     LogManager::PrintInfoBox("2. 판매", 2);
     LogManager::PrintInfoBox("0. 나가기", 3);
@@ -16,12 +17,15 @@ void Shop::ShowShopTopMenu()
     {
         LogManager::PrintInfoBox(" ", i); // 빈칸 채우기
     }
+    LogManager::GoToXY(29, 24);
+    std::cout << "골드 : " << player.GetGold();
 }
 
-void Shop::ShowShopBuyMenu()
+void Shop::ShowShopBuyMenu(const Character& player)
 {
     // 정보창에 상점 물품 목록 출력
-    LogManager::PrintInfoBox("========= 중간 상점 =========", 0);
+    LogManager::GoToXY(2, 18);
+    std::cout << "============= 중간 상점 =============";
     LogManager::PrintInfoBox("1. 미니 포션 구매(50G)", 1);
     LogManager::PrintInfoBox("2. 대형 포션 구매(100G)", 2);
     LogManager::PrintInfoBox("0. 나가기", 3);
@@ -29,12 +33,15 @@ void Shop::ShowShopBuyMenu()
     {
         LogManager::PrintInfoBox(" ", i); // 빈칸 채우기
     }
+    LogManager::GoToXY(29, 24);
+    std::cout << "골드 : " << player.GetGold();
 }
 
-void Shop::ShowShopSellMenu()
+void Shop::ShowShopSellMenu(const Character& player)
 {
     // 정보창에 상점 물품 목록 출력
-    LogManager::PrintInfoBox("========= 중간 상점 =========", 0);
+    LogManager::GoToXY(2, 18);
+    std::cout << "============= 중간 상점 =============";
     LogManager::PrintInfoBox("1. 미니 포션 판매(30G)", 1);
     LogManager::PrintInfoBox("2. 대형 포션 판매(60G)", 2);
     LogManager::PrintInfoBox("0. 나가기", 3);
@@ -42,6 +49,8 @@ void Shop::ShowShopSellMenu()
     {
         LogManager::PrintInfoBox(" ", i); // 빈칸 채우기
     }
+    LogManager::GoToXY(29, 24);
+    std::cout << "골드 : " << player.GetGold();
 }
 
 bool Shop::BuyItem(Character& player, int choice)

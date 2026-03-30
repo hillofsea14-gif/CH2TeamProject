@@ -204,7 +204,7 @@ int GameStart()
             LogManager::PrintBattleLog("[ 상점 ]", 0);
             LogManager::PrintBattleLog("원하는 기능을 선택하세요.", 1);
             //LogManager::PrintMessage("상점에 입장합니다");  //[한길] 3.30 수정.[성윤] 불필요한 메시지 제거.
-            Shop::ShowShopTopMenu();
+            Shop::ShowShopTopMenu(player);
 
             LogManager::PrintInfoBox("선택 : ", 7);
 
@@ -222,7 +222,7 @@ int GameStart()
             if (input == 1) // 구매 모드
             {
                 LogManager::ClearInfoArea();
-                Shop::ShowShopBuyMenu();
+                Shop::ShowShopBuyMenu(player);
                 LogManager::PrintInfoBox("선택 : ", 7);
 
                 int choice = 0;
@@ -271,7 +271,7 @@ int GameStart()
             else if (input == 2) // 판매 모드
             {
                 LogManager::ClearInfoArea();
-                Shop::ShowShopSellMenu();
+                Shop::ShowShopSellMenu(player);
                 LogManager::PrintInfoBox("선택 : ", 7);
 
                 int choice = 0;
