@@ -8,17 +8,17 @@
 
 WildBoar::WildBoar(int playerLevel) : Monster("멧돼지")
 {
-    int baseHP = 300 + (playerLevel * 1.1); 
-    int baseAtt = 90 + (playerLevel * 1.1);  
-    int randomHP = rand() % 21;  
-    int randomAtt = rand() % 6;  
+    int baseHP = 180 + (playerLevel * 1.1); 
+    int baseAtt = 80 + (playerLevel * 1.1);  
+    int randomHP = baseHP * (rand() % 11) / 100;
+    int randomAtt = baseAtt * (rand() % 6) / 100;
     SetLvl(21); 
     SetGivingGold(500); 
-    SetGivingExp(250); 
+    SetGivingExp(1000); 
     SetMaxHP(baseHP + randomHP); 
     SetCurrentHP(baseHP + randomHP); 
     SetAtt(baseAtt + randomAtt);
-    SetDef(50);
+    SetDef(40);
     SetSpd(24);
 }
 

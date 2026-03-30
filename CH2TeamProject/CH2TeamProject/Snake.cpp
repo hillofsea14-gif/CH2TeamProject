@@ -8,17 +8,17 @@
 
 Snake::Snake(int playerLevel) : Monster("독뱀")
 {
-    int baseHP = 140 + (playerLevel * 1.1);
-    int baseAtt = 90 + (playerLevel * 1.1);
-    int randomHP = rand() % 21;
-    int randomAtt = rand() % 6;
+    int baseHP = 120 + (playerLevel * 1.1);
+    int baseAtt = 70 + (playerLevel * 1.1);
+    int randomHP = baseHP * (rand() % 11) / 100;
+    int randomAtt = baseAtt * (rand() % 6) / 100;
     SetLvl(14);
     SetGivingGold(180);
-    SetGivingExp(150);
+    SetGivingExp(600);
     SetMaxHP(baseHP + randomHP);
     SetCurrentHP(baseHP + randomHP);
     SetAtt(baseAtt + randomAtt);
-    SetDef(30);
+    SetDef(20);
     SetSpd(16);
 }
 

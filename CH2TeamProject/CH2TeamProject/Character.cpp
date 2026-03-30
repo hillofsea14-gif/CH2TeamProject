@@ -4,9 +4,9 @@
 #include "LogManager.h"
 
 Character::Character(std::string InName)
-    : name(InName), CurrentHP(100), MaxHP(100), Def(10), Att(20), Spd(5), Dam(0), Gold(0)
+    : name(InName), CurrentHP(100), MaxHP(100), Def(5), Att(15), Spd(5), Dam(0), Gold(0) // [승민] 3.30 초기 스탯 변경
 {
-    LevelComp = new LevelComponent();
+    LevelComp = new LevelComponent(this);
 }
 
 Character::~Character()

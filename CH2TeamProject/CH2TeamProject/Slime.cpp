@@ -9,15 +9,15 @@
 
 Slime::Slime(int playerLevel) : Monster("슬라임")
 {
-    int baseHP = 40 + (playerLevel * 1.1); 
-    int baseAtt = 15 + (playerLevel * 1.1);  
+    int baseHP = 20 + (playerLevel * 1.1); 
+    int baseAtt = 5 + (playerLevel * 1.1);  
 
-    int randomHP = rand() % 21;  
-    int randomAtt = rand() % 6;  
+    int randomHP = baseHP * (rand() % 11) / 100;
+    int randomAtt = baseAtt * (rand() % 6) / 100;
 
     SetLvl(1); 
     SetGivingGold(30); 
-    SetGivingExp(25); 
+    SetGivingExp(100); 
     SetMaxHP(baseHP + randomHP); 
     SetCurrentHP(baseHP + randomHP); 
     SetAtt(baseAtt + randomAtt);

@@ -8,17 +8,17 @@
 
 BigNuguri::BigNuguri(int playerLevel) : Monster("대왕너구리")
 {
-    int baseHP = 400 + (playerLevel * 1.1); 
-    int baseAtt = 70 + (playerLevel * 1.1);  
-    int randomHP = rand() % 21;  
-    int randomAtt = rand() % 6;  
+    int baseHP = 300 + (playerLevel * 1.1); 
+    int baseAtt = 60 + (playerLevel * 1.1);  
+    int randomHP = baseHP * (rand() % 11) / 100;
+    int randomAtt = baseAtt * (rand() % 6) / 100;
     SetLvl(20); 
     SetGivingGold(400); 
-    SetGivingExp(650); 
+    SetGivingExp(2600); 
     SetMaxHP(baseHP + randomHP); 
     SetCurrentHP(baseHP + randomHP); 
     SetAtt(baseAtt + randomAtt);
-    SetDef(50);
+    SetDef(35);
     SetSpd(20);
 }
 

@@ -1,15 +1,18 @@
 ﻿// LevelComponent.cpp
 
 #include "LevelComponent.h"
+#include "Character.h"
+#include <iostream>
 
-LevelComponent::LevelComponent()
+LevelComponent::LevelComponent(Character* InCharacter)
+    : character(InCharacter)
 {
-    // 초기화 로직 (필요 시)
+     // 초기화 로직 (필요 시)
 }
 
-void LevelComponent::GainExperience(float Amount)
+void LevelComponent::GainExperience(int Amount) // [승민] 정수로 출력하기 위해서 int로 통일.
 {
-    if (Amount <= 0.f) return;
+    if (Amount <= 0) return;
 
     CurrentExp += Amount;
     //std::cout << "\\n[경험치 획득] +" << Amount << " EXP" << std::endl;
@@ -29,7 +32,11 @@ void LevelComponent::ProcessLevelUp()
 {
     CurrentExp -= MaxExp;
     CurrentLevel++;
-
+    character->SetMaxHP(character->GetMaxHP() + 10); // [승민] 3.30 레벨업 시 최대 HP 증가
+    character->SetCurrentHP(character->GetMaxHP()); // [승민] 3.30 레벨업 시 현재 HP를 최대 HP로 설정
+    character->SetAtt(character->GetAtt() + 5); // [승민] 3.30 레벨업 시 공격력 증가
+    character->SetDef(character->GetDef() + 2); // [승민] 3.30 레벨업 시 방어력 증가
+    character->SetSpd(character->GetSpd() + 1); // [승민] 3.30 레벨업 시 속도 증가
     // 다음 레벨 필요 경험치 20% 증가
     MaxExp *= 1.2f;
 

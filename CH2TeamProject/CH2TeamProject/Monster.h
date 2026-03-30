@@ -36,7 +36,7 @@ public:
 
     int GetLvl() const;
 
-    float GetGivingExp() const;   // [한길] 시스템 변경으로 자료형 변경.
+    int GetGivingExp() const;   // [한길] 시스템 변경으로 자료형 변경. [승민] 3.30 정수로 출력하기 위해서 int로 통일.
 
     int GetGivingGold() const;   // [한길] 기빙골드 겟터 추가.
 
@@ -68,7 +68,7 @@ private:
     int Spd;
     int Dam;
     int Lvl;
-    float GivingExp;   // [한길] 시스템 변경으로 자료형 변경.
+    int GivingExp;   // [한길] 시스템 변경으로 자료형 변경. [승민] 3.30 정수 출력하기 위해서 int로 통일.
     int GivingGold;   // [한길] 몬스터 사냥시 플레이어가 얻는 골드.
 };
 

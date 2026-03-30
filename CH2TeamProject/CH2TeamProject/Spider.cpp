@@ -8,13 +8,13 @@
 
 Spider::Spider(int playerLevel) : Monster("독거미")
 {
-    int baseHP = 130 + (playerLevel * 1.1); 
-    int baseAtt = 70 + (playerLevel * 1.1);  
-    int randomHP = rand() % 21;  
-    int randomAtt = rand() % 6;  
+    int baseHP = 90 + (playerLevel * 1.1); 
+    int baseAtt = 50 + (playerLevel * 1.1);  
+    int randomHP = baseHP * (rand() % 11) / 100;
+    int randomAtt = baseAtt * (rand() % 6) / 100;
     SetLvl(12); 
     SetGivingGold(140); 
-    SetGivingExp(130); 
+    SetGivingExp(520); 
     SetMaxHP(baseHP + randomHP); 
     SetCurrentHP(baseHP + randomHP); 
     SetAtt(baseAtt + randomAtt);

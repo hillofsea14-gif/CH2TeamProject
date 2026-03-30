@@ -8,13 +8,13 @@
 
 Wolf::Wolf(int playerLevel) : Monster("늑대")
 {
-    int baseHP = 65 + (playerLevel * 1.1); 
-    int baseAtt = 25 + (playerLevel * 1.1);  
-    int randomHP = rand() % 21;  
-    int randomAtt = rand() % 6;  
+    int baseHP = 30 + (playerLevel * 1.1); 
+    int baseAtt = 10 + (playerLevel * 1.1);  
+    int randomHP = baseHP * (rand() % 11) / 100;
+    int randomAtt = baseAtt * (rand() % 6) / 100;
     SetLvl(4); 
     SetGivingGold(50); 
-    SetGivingExp(50); 
+    SetGivingExp(200);
     SetMaxHP(baseHP + randomHP); 
     SetCurrentHP(baseHP + randomHP); 
     SetAtt(baseAtt + randomAtt);

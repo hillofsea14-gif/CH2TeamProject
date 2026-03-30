@@ -8,13 +8,13 @@
 
 WildCat::WildCat(int playerLevel) : Monster("살쾡이")
 {
-    int baseHP = 85 + (playerLevel * 1.1); 
-    int baseAtt = 35 + (playerLevel * 1.1);  
-    int randomHP = rand() % 21;  
-    int randomAtt = rand() % 6;  
+    int baseHP = 50 + (playerLevel * 1.1); 
+    int baseAtt = 25 + (playerLevel * 1.1);  
+    int randomHP = baseHP * (rand() % 11) / 100;
+    int randomAtt = baseAtt * (rand() % 6) / 100;
     SetLvl(6); 
     SetGivingGold(70); 
-    SetGivingExp(60); 
+    SetGivingExp(240); 
     SetMaxHP(baseHP + randomHP); 
     SetCurrentHP(baseHP + randomHP); 
     SetAtt(baseAtt + randomAtt);

@@ -8,17 +8,17 @@
 
 Tiger::Tiger(int playerLevel) : Monster("호랑이")
 {
-    int baseHP = 630 + (playerLevel * 1.1); 
-    int baseAtt = 180 + (playerLevel * 1.1);  
-    int randomHP = rand() % 21;  
-    int randomAtt = rand() % 6;  
+    int baseHP = 240 + (playerLevel * 1.1); 
+    int baseAtt = 100 + (playerLevel * 1.1);  
+    int randomHP = baseHP * (rand() % 11) / 100;
+    int randomAtt = baseAtt * (rand() % 6) / 100;
     SetLvl(25); 
     SetGivingGold(700); 
-    SetGivingExp(1100); 
+    SetGivingExp(4400); 
     SetMaxHP(baseHP + randomHP); 
     SetCurrentHP(baseHP + randomHP); 
     SetAtt(baseAtt + randomAtt);
-    SetDef(70);
+    SetDef(60);
     SetSpd(27);
 }
 
@@ -34,5 +34,5 @@ void Tiger::Draw() const
     LogManager::PrintMonsterBox("         `-'       |  -| -|\\__ \\  |-' |", 14);
     LogManager::PrintMonsterBox("                __/   /__,-'    ),'  |'", 15);
     LogManager::PrintMonsterBox("               ((__.-'((____..-' \\__,'", 16);
-    LogManager::PrintMonsterBox("   [ 숲속의 은둔자 너구리가 나타났습니다! ]", 17);
+    LogManager::PrintMonsterBox("   [ 산속의왕 호랑이가 나타났습니다! ]", 17);
 }

@@ -8,17 +8,17 @@
 
 Gorani::Gorani(int playerLevel) : Monster("고라니")
 {
-    int baseHP = 105 + (playerLevel * 1.1); 
-    int baseAtt = 50 + (playerLevel * 1.1);  
-    int randomHP = rand() % 21;  
-    int randomAtt = rand() % 6;  
+    int baseHP = 80 + (playerLevel * 1.1); 
+    int baseAtt = 30 + (playerLevel * 1.1);  
+    int randomHP = baseHP * (rand() % 11) / 100;
+    int randomAtt = baseAtt * (rand() % 6) / 100;
     SetLvl(9); 
     SetGivingGold(100); 
-    SetGivingExp(100); 
+    SetGivingExp(400); 
     SetMaxHP(baseHP + randomHP); 
     SetCurrentHP(baseHP + randomHP); 
     SetAtt(baseAtt + randomAtt);
-    SetDef(15);
+    SetDef(10);
     SetSpd(10);
 }
 

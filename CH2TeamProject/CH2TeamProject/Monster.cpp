@@ -70,7 +70,7 @@ int Monster::GetLvl() const
     return Lvl;
 }
 
-float Monster::GetGivingExp() const  // [한길] 시스템 변경으로 int에서 float으로 변경.
+int Monster::GetGivingExp() const  // [한길] 시스템 변경으로 int에서 float으로 변경. // [승민] 3.30 정수로 출력하기 위해서 int로 통일.
 {
     return GivingExp;
 }

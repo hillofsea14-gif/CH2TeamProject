@@ -1,13 +1,9 @@
-﻿// Start.cpp
-
+﻿// Main.cpp
 
 #include <iostream>
 #include <string>
 #include <limits>
-#include <ctime>
-#include <cstdlib>
 
-#include "Start.h"
 #include "Character.h"
 #include "Monster.h"
 #include "LevelComponent.h"
@@ -23,14 +19,276 @@
 #include "Tiger.h" // [승민]```
 #include "LogManager.h"
 #include "Shop.h"
-#include "Battle.h"
-#include "Render.h"
 
-int GameStart()
+void WaitForNext()
 {
+    LogManager::GoToXY(2, 28);
+    std::cout << "엔터를 누르면 계속합니다...           ";
+    std::cin.get();
+    LogManager::GoToXY(2, 28);
+    std::cout << "                                  ";
+}
+
+void ShowMainScreen(Character& character)
+{
+    LogManager::DrawBattleUI();
+
+    LogManager::PrintBattleLog("집으로 돌아가기 위한 여정", 0);
+    LogManager::PrintBattleLog("행동을 선택하세요.", 1);
+
+    LogManager::PrintPlayerInfo(
+        character.GetName(),
+        character.GetCurrentHP(),
+        character.GetMaxHP(),
+        character.GetAtt(),
+        character.GetDef(),
+        character.GetSpd(),
+        character.GetGold(),
+        character.GetCurrentExp(),
+        character.GetMaxExp(),
+        character.GetItems()  // [한길] 이 함수가 출력되는 곳에 모두 GetItem() 함수 추가.
+    );
+    LogManager::DrawMainMenuInRightPanel();
+}
+
+bool IsPlayerFast(Character& character, Monster& monster)
+{
+    return character.GetSpd() > monster.GetSpd();
+}
+
+void PAttack(Character& character, Monster& monster)
+{
+    character.attack(character, monster);
+}
+
+void MAttack(Character& character, Monster& monster)
+{
+    monster.attack(character, monster);
+}
+
+bool ReadIntAt(int x, int y, int& outValue)
+{
+    LogManager::GoToXY(x, y);
+
+    if (!(std::cin >> outValue))
+    {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        return false;
+    }
+
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    return true;
+}
+
+bool OpenItemMenu(Character& character)
+{
+    character.ShowItems();
+
+    int choice = 0;
+    if (!ReadIntAt(10, 27, choice))
+    {
+        LogManager::ClearBattleLogArea();
+        LogManager::PrintBattleLog("숫자를 입력해주세요.", 0);
+        return false;
+    }
+
+    if (choice == 0)
+    {
+        return false;
+    }
+
+    return character.UseItem(choice - 1);
+}
+
+void RefreshBattleScreen(Character& character, Monster& monster)
+{
+    LogManager::DrawBattleUI();
+    LogManager::PrintPlayerInfo(
+        character.GetName(),
+        character.GetCurrentHP(),
+        character.GetMaxHP(),
+        character.GetAtt(),
+        character.GetDef(),
+        character.GetSpd(),
+        character.GetGold(),
+        character.GetCurrentExp(),
+        character.GetMaxExp(),
+        character.GetItems()  // [한길] 이 함수가 출력되는 곳에 모두 GetItem() 함수 추가.
+    );
+
+    LogManager::PrintMonsterInfo(
+        monster.GetName(),
+        monster.GetCurrentHP(),
+        monster.GetMaxHP(),
+        monster.GetAtt(),
+        monster.GetDef(),
+        monster.GetSpd()
+    );
+
+    monster.Draw();
+    LogManager::PrintBattleMenuUI();
+}
+
+void Battle(Character& character, Monster& monster)
+{
+    bool isplayerfast = IsPlayerFast(character, monster);
+
+    RefreshBattleScreen(character, monster);
+
+    LogManager::PrintBattleLog("[" + monster.GetName() + "] 와(과) 조우했습니다!", 0);
+    LogManager::PrintBattleLog("전투에 돌입합니다!!!", 1);
+    WaitForNext();
+
+    if (!isplayerfast)
+    {
+        MAttack(character, monster);
+        RefreshBattleScreen(character, monster);
+
+        LogManager::ClearBattleLogArea();
+        LogManager::PrintBattleLog("상대가 더 빠릅니다.", 0);
+        LogManager::PrintBattleLog(monster.GetName() + "이(가) 먼저 공격합니다!!", 1);
+        LogManager::PrintBattleLog(
+            std::to_string(monster.GetDam()) + "만큼의 피해를 주었습니다.", 2
+        );
+
+        if (character.GetCurrentHP() <= 0)
+        {
+            LogManager::PrintBattleLog("캐릭터가 사망하였습니다.", 3);
+            WaitForNext();
+            return;
+        }
+        WaitForNext();
+    }
+
+    while (character.GetCurrentHP() > 0 && monster.GetCurrentHP() > 0)
+    {
+        RefreshBattleScreen(character, monster);
+
+        int choice = 0;
+        if (!ReadIntAt(10, 27, choice))
+        {
+            LogManager::ClearBattleLogArea();
+            LogManager::PrintBattleLog("숫자를 입력해주세요.", 0);
+            WaitForNext();
+            continue;
+        }
+
+        if (choice == 1)
+        {
+            PAttack(character, monster);
+            RefreshBattleScreen(character, monster);
+
+            LogManager::ClearBattleLogArea();
+            LogManager::PrintBattleLog(
+                character.GetName() + "이(가) " + monster.GetName() + "을(를) 공격합니다!!", 0
+            );
+            LogManager::PrintBattleLog(
+                std::to_string(character.GetDam()) + "만큼의 피해를 주었습니다.", 1
+            );
+
+            if (monster.GetCurrentHP() <= 0)
+            {
+                character.EarnExp(monster.GetGivingExp());
+                character.EarnGold(monster);
+
+                LogManager::PrintBattleLog("몬스터가 사망하였습니다.", 2);
+                LogManager::PrintBattleLog("전투 승리!!", 3);
+                LogManager::PrintBattleLog(
+                    std::to_string(monster.GetGivingExp()) + " EXP를 획득했습니다.", 4
+                );
+                LogManager::PrintBattleLog(
+                    std::to_string(monster.GetGivingGold()) + " G를 획득했습니다.", 5
+                );
+
+                WaitForNext();
+                break;
+            }
+            WaitForNext();
+        }
+        else if (choice == 2)
+        {
+            int beforeHP = character.GetCurrentHP();
+            bool usedItem = OpenItemMenu(character);
+            int afterHP = character.GetCurrentHP();
+            int healed = afterHP - beforeHP;
+
+            RefreshBattleScreen(character, monster);
+            LogManager::ClearBattleLogArea();
+
+            if (!usedItem)
+            {
+                LogManager::PrintBattleLog("아이템을 사용하지 않았습니다.", 0);
+                WaitForNext();
+                continue;
+            }
+
+            if (healed > 0)
+            {
+                LogManager::PrintBattleLog("포션을 사용했습니다!", 0);
+                LogManager::PrintBattleLog(
+                    character.GetName() + "의 체력이 " + std::to_string(healed) + " 회복되었습니다.", 1
+                );
+                LogManager::PrintBattleLog(
+                    "현재 HP : " + std::to_string(character.GetCurrentHP()) + "/" +
+                    std::to_string(character.GetMaxHP()), 2
+                );
+            }
+            else
+            {
+                LogManager::PrintBattleLog("포션을 사용했지만 회복되지 않았습니다.", 0);
+            }
+
+            WaitForNext();
+        }
+        else if (choice == 3)
+        {
+            RefreshBattleScreen(character, monster);
+            LogManager::ClearBattleLogArea();
+            LogManager::PrintBattleLog("당신은 도망쳤습니다...", 0);
+            WaitForNext();
+            break;
+        }
+        else
+        {
+            LogManager::ClearBattleLogArea();
+            LogManager::PrintBattleLog("잘못된 입력입니다.", 0);
+            WaitForNext();
+            continue;
+        }
+
+        if (monster.GetCurrentHP() > 0)
+        {
+            MAttack(character, monster);
+            RefreshBattleScreen(character, monster);
+
+            LogManager::ClearBattleLogArea();
+            LogManager::PrintBattleLog(
+                monster.GetName() + "이(가) " + character.GetName() + "을(를) 공격합니다!!", 0
+            );
+            LogManager::PrintBattleLog(
+                std::to_string(monster.GetDam()) + "만큼의 피해를 주었습니다.", 1
+            );
+
+            if (character.GetCurrentHP() <= 0)
+            {
+                LogManager::PrintBattleLog("캐릭터가 사망하였습니다.", 2);
+                WaitForNext();
+                break;
+            }
+            WaitForNext();
+        }
+    }
+}
+
+int main()
+{
+
     std::string name;
     int menu = 0;
 
+    LevelComponent* MyLevel = new LevelComponent(); // [승민] 플레이어 레벨 객체 생성
+    LogManager::SetConsoleSize(100, 30);
     LogManager::PrintStartScreen();
     std::cin >> name;
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -57,58 +315,13 @@ int GameStart()
         {
         case 1:
         {
+
+           
             LogManager::PrintMessage("전투에 입장합니다.");
+
             srand(time(NULL));
-            if (player.GetLevel() < 5 && player.GetCurrentHP() > 0) // [승민] 3.30 전투 입장시 플레이어 레벨에 따라 등장하는 몬스터가 달라지도록 수정.
-            {
-                Slime slime(player.GetLevel());
-                Battle(player, slime);
-                if (player.GetCurrentHP() > 0)
-                {
-                    Wolf wolf(player.GetLevel()); // [승민] 몬스터 생성시 플레이어 레벨을 매개변수로 받아야함.[한길] 3.30 캐릭터에 GetLevel 추가
-                    Battle(player, wolf);
-                }
-            }
-            else if (player.GetLevel() >= 5 && player.GetLevel() < 10 && player.GetCurrentHP() > 0)
-            {
-                WildCat wildcat(player.GetLevel());
-                Battle(player, wildcat);
-                if (player.GetCurrentHP() > 0)
-                {
-                    Gorani gorani(player.GetLevel());
-                    Battle(player, gorani);
-                }
-            }
-            else if (player.GetLevel() >= 10 && player.GetLevel() < 15 && player.GetCurrentHP() > 0)
-            {
-                Spider spider(player.GetLevel());
-                Battle(player, spider);
-                if (player.GetCurrentHP() > 0)
-                {
-                    Snake snake(player.GetLevel());
-                    Battle(player, snake);
-                }
-            }
-            else if (player.GetLevel() >= 15 && player.GetLevel() < 20 && player.GetCurrentHP() > 0)
-            {
-                BigNuguri bignuguri(player.GetLevel());
-                Battle(player, bignuguri);
-            }
-            else if (player.GetLevel() >= 20 && player.GetCurrentHP() > 0)
-            {
-                WildBoar wildboar(player.GetLevel());
-                Battle(player, wildboar);
-                if (player.GetCurrentHP() > 0)
-                {
-                    Bear bear(player.GetLevel());
-                    Battle(player, bear);
-                }
-                if (player.GetCurrentHP() > 0)
-                {
-                    Tiger tiger(player.GetLevel());
-                    Battle(player, tiger);
-                }
-            }
+            Wolf monster(player.GetLevel()); // [승민] 몬스터 생성시 플레이어 레벨을 매개변수로 받아야함.[한길] 3.30 캐릭터에 GetLevel 추가
+            Battle(player, monster);
             LogManager::ClearScreen();
             break;
         }
@@ -207,7 +420,7 @@ int GameStart()
 
             LogManager::PrintInfoBox("선택 : ", 7);
 
-
+            
             //std::cin >> input;
             int input = 0;
             if (!ReadIntAt(9, 25, input))  // [성윤] 선택창 이거로 해야 원하는데 옆에 나와용
@@ -277,13 +490,13 @@ int GameStart()
                 //int choice;
                 //std::cin >> choice;
                 // 판매 가능한 옵션인 경우에만 실행
-                if (!ReadIntAt(9, 25, choice))  // [성윤] 선택창 이거로 해야 원하는데 옆에 나와용
-                {
-                    LogManager::ClearBattleLogArea();
-                    LogManager::PrintBattleLog("숫자를 입력해주세요.", 0);
-                    WaitForNext();
-                    break;
-                }
+                    if (!ReadIntAt(9, 25, choice))  // [성윤] 선택창 이거로 해야 원하는데 옆에 나와용
+                    {
+                        LogManager::ClearBattleLogArea();
+                        LogManager::PrintBattleLog("숫자를 입력해주세요.", 0);
+                        WaitForNext();
+                        break;
+                    }
 
                 if (choice == 1 || choice == 2)
                 {
@@ -337,6 +550,4 @@ int GameStart()
         }
         }
     }
-
-    return 0;
 }

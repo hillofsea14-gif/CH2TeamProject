@@ -13,6 +13,7 @@
 class Character
 {
 public:
+    Character() = default;
     Character(std::string InName);
     ~Character();
 
