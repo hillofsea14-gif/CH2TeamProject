@@ -20,6 +20,7 @@ void ShowMainScreen(Character& character)
 
     LogManager::PrintPlayerInfo(
         character.GetName(),
+        character.GetLevel(),   //[한길] 레벨 겟터 추가
         character.GetCurrentHP(),
         character.GetMaxHP(),
         character.GetAtt(),
@@ -75,6 +76,7 @@ void RefreshBattleScreen(Character& character, Monster& monster)
     LogManager::DrawBattleUI();
     LogManager::PrintPlayerInfo(
         character.GetName(),
+        character.GetLevel(),  //[한길] 3.30 레벨 겟터 추가
         character.GetCurrentHP(),
         character.GetMaxHP(),
         character.GetAtt(),

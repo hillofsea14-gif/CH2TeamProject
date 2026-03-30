@@ -26,7 +26,7 @@ public:
     static void PrintBattleLog(const std::string& message, int line);
     static void PrintInfoBox(const std::string& message, int line);
     static void PrintMonsterBox(const std::string& message, int line);
-    static void PrintPlayerInfo(const std::string& name, int hp, int maxHP, int att, int def, int spd, int gold,  float currentExp, float maxExp, const std::vector<std::shared_ptr<Item>>& items);
+    static void PrintPlayerInfo(const std::string& name, int level, int hp, int maxHP, int att, int def, int spd, int gold, float currentExp, float maxExp, const std::vector<std::shared_ptr<Item>>& items);
     static void PrintMonsterInfo(const std::string& name, int hp, int maxHP, int att, int def, int spd);
     static void PrintBattleMenuUI();
     static void ClearRightPanel();

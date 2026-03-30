@@ -4,7 +4,7 @@
 
 bool IsPlayerFast(Character& character, Monster& monster)
 {
-    return character.GetSpd() > monster.GetSpd();
+    return character.GetSpd() >= monster.GetSpd();    // [한길] 3.30 속도가 같으면 플레이어 선공되게 =>로 수정.
 }
 
 void PAttack(Character& character, Monster& monster)

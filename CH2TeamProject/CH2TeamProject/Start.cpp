@@ -150,8 +150,9 @@ int GameStart()
             LogManager::DrawBattleUI();
             LogManager::ClearBattleLogArea();
 
-            LogManager::PrintPlayerInfo(
+            LogManager::PrintPlayerInfo(   // [한길]3.30 레벨 출력 추가.
                 player.GetName(),
+                player.GetLevel(),
                 player.GetCurrentHP(),
                 player.GetMaxHP(),
                 player.GetAtt(),
