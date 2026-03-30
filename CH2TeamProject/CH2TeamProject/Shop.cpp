@@ -75,14 +75,14 @@ bool Shop::BuyItem(Character& player, int choice)
         player.AddItem(newItem);
 
         // 결과 알림
-        LogManager::PrintMessage(itemName + "을(를) 구매했습니다!");
-        LogManager::PrintMessage("잔액: " + std::to_string(player.GetGold()) + "G");
+        LogManager::PrintMessage("| " + itemName + "을(를) 구매했습니다!");
+        LogManager::PrintMessage("| 잔액: " + std::to_string(player.GetGold()) + "G");
         return true;
     }
     else
     {
         // 골드 부족 알림
-        LogManager::PrintMessage("골드가 부족합니다! (필요: " + std::to_string(price) + "G)");
+        LogManager::PrintMessage("| 골드가 부족합니다! (필요: " + std::to_string(price) + "G)");
         return false;
     }
 }
@@ -120,7 +120,7 @@ bool Shop::SellItem(Character& player, int choice)
         // 개수 감소
         itemInItems->AddCount(-1);
 
-        LogManager::PrintMessage(targetName + "을(를) 판매했습니다!");
+        LogManager::PrintMessage("| " + targetName + "을(를) 판매했습니다!");
 
         // 만약 개수가 0이 되었다면 인벤토리 목록에서 삭제
         /*
@@ -130,12 +130,13 @@ bool Shop::SellItem(Character& player, int choice)
         }
         */
 
-        LogManager::PrintMessage("잔액: " + std::to_string(player.GetGold()) + "G");
+        LogManager::PrintMessage("| 잔액: " + std::to_string(player.GetGold()) + "G");
         return true;
     }
     else
     {
-        LogManager::PrintMessage("판매할 " + targetName + "이(가) 인벤토리에 없습니다.");
+        LogManager::PrintMessage("| 판매할 " + targetName + "이(가)");
+        LogManager::PrintMessage("| " "인벤토리에 없습니다.");
         return false;
     }
 }

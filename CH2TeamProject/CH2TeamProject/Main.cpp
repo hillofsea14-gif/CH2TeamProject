@@ -68,6 +68,8 @@ void MAttack(Character& character, Monster& monster)
 
 bool ReadIntAt(int x, int y, int& outValue)
 {
+    LogManager::GoToXY(x, y);
+
     if (!(std::cin >> outValue))
     {
         std::cin.clear();
@@ -337,8 +339,7 @@ int main()
             LogManager::PrintInfoBox("선택 : ", 7);
 
             int choice = 0;
-            LogManager::GoToXY(9, 25);
-            if (!(std::cin >> choice))
+            if (!ReadIntAt(9, 25, choice))
             {
                 LogManager::ClearBattleLogArea();
                 LogManager::PrintBattleLog("숫자를 입력해주세요.", 0);
@@ -405,22 +406,72 @@ int main()
 
         case 3:
         {
-            LogManager::PrintMessage("상점에 입장합니다");  //[한길] 3.30 수정.
+            LogManager::DrawBattleUI();
+            LogManager::ClearBattleLogArea();
+            LogManager::ClearInfoArea();
+            LogManager::ClearRightPanel();
+
+            LogManager::PrintBattleLog("[ 상점 ]", 0);
+            LogManager::PrintBattleLog("원하는 기능을 선택하세요.", 1);
+            //LogManager::PrintMessage("상점에 입장합니다");  //[한길] 3.30 수정.[성윤] 불필요한 메시지 제거.
             Shop::ShowShopTopMenu();
 
-            int input;
-            std::cin >> input;
+            LogManager::PrintInfoBox("선택 : ", 7);
+
+            
+            //std::cin >> input;
+            int input = 0;
+            if (!ReadIntAt(9, 25, input))  // [성윤] 선택창 이거로 해야 원하는데 옆에 나와용
+            {
+                LogManager::ClearBattleLogArea();
+                LogManager::PrintBattleLog("숫자를 입력해주세요.", 0);
+                WaitForNext();
+                break;
+            }
 
             if (input == 1) // 구매 모드
             {
+                LogManager::ClearInfoArea();
                 Shop::ShowShopBuyMenu();
-                int choice;
-                std::cin >> choice;
+                LogManager::PrintInfoBox("선택 : ", 7);
+
+                int choice = 0;
+                if (!ReadIntAt(9, 25, choice))  // [성윤] 선택창 이거로 해야 원하는데 옆에 나와용
+                {
+                    LogManager::ClearBattleLogArea();
+                    LogManager::PrintBattleLog("숫자를 입력해주세요.", 0);
+                    WaitForNext();
+                    break;
+                }
+                //int choice;
+                //std::cin >> choice;
 
                 // 구매 가능한 옵션(1, 2)인 경우에만 실행
                 if (choice == 1 || choice == 2)
                 {
-                    Shop::BuyItem(player, choice);
+                    bool success = Shop::BuyItem(player, choice);
+
+                    LogManager::ClearBattleLogArea();
+                    if (!success)
+                    {
+                        LogManager::PrintBattleLog("구매할 수 없습니다.", 0);
+                    }
+                    else if (choice == 1)
+                    {
+                        LogManager::PrintBattleLog("미니 포션을 구매했습니다!", 0);
+                    }
+                    else if (choice == 2)
+                    {
+                        LogManager::PrintBattleLog("대형 포션을 구매했습니다!", 0);
+                    }
+
+                    WaitForNext();
+                }
+                else if (choice == 0)
+                {
+                    LogManager::ClearBattleLogArea();
+                    LogManager::PrintBattleLog("구매를 취소했습니다.", 0);
+                    WaitForNext();
                 }
                 else
                 {
@@ -429,19 +480,46 @@ int main()
             }
             else if (input == 2) // 판매 모드
             {
+                LogManager::ClearInfoArea();
                 Shop::ShowShopSellMenu();
-                int choice;
-                std::cin >> choice;
+                LogManager::PrintInfoBox("선택 : ", 7);
 
+                int choice = 0;
+                //int choice;
+                //std::cin >> choice;
                 // 판매 가능한 옵션인 경우에만 실행
+                    if (!ReadIntAt(9, 25, choice))  // [성윤] 선택창 이거로 해야 원하는데 옆에 나와용
+                    {
+                        LogManager::ClearBattleLogArea();
+                        LogManager::PrintBattleLog("숫자를 입력해주세요.", 0);
+                        WaitForNext();
+                        break;
+                    }
+
                 if (choice == 1 || choice == 2)
                 {
-                    Shop::SellItem(player, choice);
+                    bool success = Shop::SellItem(player, choice);
+                    LogManager::ClearBattleLogArea();
+                    if (!success)
+                    {
+                        LogManager::PrintBattleLog("판매할 수 없습니다.", 0);
+                    }
+                    else if (choice == 1)
+                    {
+                        LogManager::PrintBattleLog("미니 포션을 판매했습니다!", 0);
+                    }
+                    else if (choice == 2)
+                    {
+                        LogManager::PrintBattleLog("대형 포션을 판매했습니다!", 0);
+                    }
+
+                    WaitForNext();
                 }
                 else
                 {
                     LogManager::PrintMessage("잘못된 선택입니다.");
                 }
+
             }
             else if (input == 0)
             {
