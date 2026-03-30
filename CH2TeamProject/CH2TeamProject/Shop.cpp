@@ -123,10 +123,12 @@ bool Shop::SellItem(Character& player, int choice)
         LogManager::PrintMessage(targetName + "을(를) 판매했습니다!");
 
         // 만약 개수가 0이 되었다면 인벤토리 목록에서 삭제
+        /*
         if (itemInItems->GetCount() <= 0) {
             player.RemoveItem(itemInItems);
             LogManager::PrintMessage(targetName + "의 수량이 모두 소진되어 제거되었습니다.");
         }
+        */
 
         LogManager::PrintMessage("잔액: " + std::to_string(player.GetGold()) + "G");
         return true;
