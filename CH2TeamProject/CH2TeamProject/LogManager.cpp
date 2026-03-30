@@ -98,10 +98,7 @@ void LogManager::PrintMainMenu()
     std::cout << "3. 상점";  //[한길] 수정. 수정. 3.30
 
     GoToXY(4, 7);
-    std::cout << "4. 미정";
-
-    GoToXY(4, 8);
-    std::cout << "5. 게임 종료";
+    std::cout << "4. 게임 종료";
 
     // 입력칸 구분선
     for (int x = 1; x < width - 1; x++)
@@ -160,6 +157,22 @@ void LogManager::GoToXY(int x, int y)
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }
 
+void LogManager::SetConsoleSize(int Width, int Height)
+{
+    HANDLE HOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    if (HOut == INVALID_HANDLE_VALUE) return;
+
+    COORD BufferSize = { static_cast<SHORT>(Width), static_cast<SHORT>(Height) };
+
+    SMALL_RECT WindowSize = { 0, 0, static_cast<SHORT>(Width - 1), static_cast<SHORT>(Height - 1) };
+
+    SMALL_RECT MinWindow = { 0, 0, 1, 1 };
+    SetConsoleWindowInfo(HOut, TRUE, &MinWindow);
+
+    SetConsoleScreenBufferSize(HOut, BufferSize);
+    SetConsoleWindowInfo(HOut, TRUE, &WindowSize);
+}
+
 void LogManager::ClearScreen()
 {
     system("cls");
@@ -210,7 +223,7 @@ void LogManager::DrawBattleUI()
     GoToXY(2, 16);
     std::cout << "[ 정보 ]";
 
-    GoToXY(46, 1);
+    GoToXY(59, 1);
     std::cout << "[ 몬스터 / 전투 화면 ]";
 }
 
@@ -261,12 +274,12 @@ void LogManager::PrintPlayerInfo(const std::string& name, int hp, int maxHP, int
     ClearInfoArea();
 
     PrintInfoBox("이름 : " + name, 0);
-    PrintInfoBox("HP : " + std::to_string(hp) + " / " + std::to_string(maxHP), 1);
-    PrintInfoBox("Exp: " + std::to_string((int)currentExp) + "/ " + std::to_string((int)maxExp), 2);
-    PrintInfoBox("공격력 : " + std::to_string(att), 3);
-    PrintInfoBox("방어력 : " + std::to_string(def), 4);
-    PrintInfoBox("속도 : " + std::to_string(spd), 5);
-    PrintInfoBox("골드 : " + std::to_string(gold), 6);
+    PrintInfoBox("HP : " + std::to_string(hp) + " / " + std::to_string(maxHP) + "       "
+        + "Exp: " + std::to_string((int)currentExp) + "/ " + std::to_string((int)maxExp), 1);
+    PrintInfoBox("공격력 : " + std::to_string(att), 2);
+    PrintInfoBox("방어력 : " + std::to_string(def), 3);
+    PrintInfoBox("속도 : " + std::to_string(spd), 4);
+    PrintInfoBox("골드 : " + std::to_string(gold), 5);
     int line = 7;          // [한길] 6번 라인부터 아이템 목록 출력. - [성윤] 아이템 목록이 7번 라인부터 출력되도록 수정.
     for (const auto& item : items)
     {
@@ -309,7 +322,7 @@ void LogManager::DrawMainMenuInRightPanel()
 {
     ClearRightPanel();
 
-    GoToXY(55, 3);
+    GoToXY(64, 3);
     std::cout << "[ 메인 메뉴 ]";
 
     GoToXY(48, 7);
@@ -322,10 +335,7 @@ void LogManager::DrawMainMenuInRightPanel()
     std::cout << "3. 상점";  // [한길] 수정. 수정. 3.30
 
     GoToXY(48, 13);
-    std::cout << "4. 미정";
-
-    GoToXY(48, 15);
-    std::cout << "5. 게임 종료";
+    std::cout << "4. 게임 종료";
 
     GoToXY(48, 20);
     std::cout << "선택 : ";

@@ -1,40 +1,126 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Bear.cpp" />
-    <ClCompile Include="Character.cpp" />
-    <ClCompile Include="Gorani.cpp" />
-    <ClCompile Include="Item.cpp" />
-    <ClCompile Include="LevelComponent.cpp" />
-    <ClCompile Include="LogManager.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Monster.cpp" />
-    <ClCompile Include="Shop.cpp" />
-    <ClCompile Include="Slime.cpp" />
-    <ClCompile Include="Snake.cpp" />
-    <ClCompile Include="Spider.cpp" />
-    <ClCompile Include="WildCat.cpp" />
-    <ClCompile Include="Wolf.cpp" />
-    <ClCompile Include="BigNuguri.cpp" />
-    <ClCompile Include="WildBoar.cpp" />
-    <ClCompile Include="Tiger.cpp" />
+    <ClCompile Include="Main.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Bear.cpp">
+      <Filter>Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="BigNuguri.cpp">
+      <Filter>Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Gorani.cpp">
+      <Filter>Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Slime.cpp">
+      <Filter>Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Snake.cpp">
+      <Filter>Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Spider.cpp">
+      <Filter>Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Wolf.cpp">
+      <Filter>Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="WildCat.cpp">
+      <Filter>Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="WildBoar.cpp">
+      <Filter>Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Tiger.cpp">
+      <Filter>Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="LogManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="Shop.cpp">
+      <Filter>Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Items</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelComponent.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Bear.h" />
-    <ClInclude Include="Character.h" />
-    <ClInclude Include="Gorani.h" />
-    <ClInclude Include="Item.h" />
-    <ClInclude Include="LevelComponent.h" />
-    <ClInclude Include="LogManager.h" />
-    <ClInclude Include="Monster.h" />
-    <ClInclude Include="Shop.h" />
-    <ClInclude Include="Slime.h" />
-    <ClInclude Include="Snake.h" />
-    <ClInclude Include="Spider.h" />
-    <ClInclude Include="WildCat.h" />
-    <ClInclude Include="Wolf.h" />
-    <ClInclude Include="BigNuguri.h" />
-    <ClInclude Include="WildBoar.h" />
-    <ClInclude Include="Tiger.h" />
+    <ClInclude Include="Bear.h">
+      <Filter>Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="BigNuguri.h">
+      <Filter>Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Gorani.h">
+      <Filter>Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Slime.h">
+      <Filter>Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Snake.h">
+      <Filter>Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Spider.h">
+      <Filter>Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Wolf.h">
+      <Filter>Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="WildCat.h">
+      <Filter>Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="WildBoar.h">
+      <Filter>Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Tiger.h">
+      <Filter>Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="LogManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Shop.h">
+      <Filter>Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Items</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelComponent.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Monster">
+      <UniqueIdentifier>{be9f7987-5955-4759-b8a5-1e53d60b5846}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{7d3b99e9-c050-41ed-bfc7-ca5c2edf80fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{e9ec3fc6-fff1-4a87-b3aa-6b1879dfdb3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Characters">
+      <UniqueIdentifier>{ca582e7f-355e-4182-bdcb-f4c550046f3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Items">
+      <UniqueIdentifier>{ceb902b0-c545-451c-ba6e-fa52ec2fe9f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems">
+      <UniqueIdentifier>{4a3931c7-17fc-4f11-9087-f3277a4615b6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

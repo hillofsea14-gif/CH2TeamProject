@@ -283,10 +283,12 @@ void Battle(Character& character, Monster& monster)
 
 int main()
 {
+
     std::string name;
     int menu = 0;
 
     LevelComponent* MyLevel = new LevelComponent(); // [승민] 플레이어 레벨 객체 생성
+    LogManager::SetConsoleSize(100, 30);
     LogManager::PrintStartScreen();
     std::cin >> name;
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -533,15 +535,6 @@ int main()
         }
 
         case 4:
-        {
-            LogManager::DrawBattleUI();
-            LogManager::ClearBattleLogArea();
-            LogManager::PrintBattleLog("미정입니다.", 0);
-            WaitForNext();
-            break;
-        }
-
-        case 5:
         {
             LogManager::PrintMessage("게임을 종료합니다.");
             return 0;

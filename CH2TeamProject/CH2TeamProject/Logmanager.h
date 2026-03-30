@@ -41,5 +41,6 @@ public:
         int gold);
     static void ClearBattleLogArea();
     static void ClearInfoArea();
+    static void SetConsoleSize(int Width, int Height);
 
 };
