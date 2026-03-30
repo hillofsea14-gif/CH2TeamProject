@@ -43,6 +43,10 @@ public:
 
     int GetGold() const;
 
+    float GetCurrentExp() const;
+
+    float GetMaxExp() const;
+
     const std::vector<std::shared_ptr<Item>>& GetItems() const; // [한길] 아이템 출력 위한 Getter 추가.
 
 

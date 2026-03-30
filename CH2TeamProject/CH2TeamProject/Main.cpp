@@ -24,7 +24,6 @@ void WaitForNext()
 {
     LogManager::GoToXY(2, 28);
     std::cout << "엔터를 누르면 계속합니다...           ";
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::cin.get();
     LogManager::GoToXY(2, 28);
     std::cout << "                                  ";
@@ -45,6 +44,8 @@ void ShowMainScreen(Character& character)
         character.GetDef(),
         character.GetSpd(),
         character.GetGold(),
+        character.GetCurrentExp(),
+        character.GetMaxExp(),
         character.GetItems()  // [한길] 이 함수가 출력되는 곳에 모두 GetItem() 함수 추가.
     );
     LogManager::DrawMainMenuInRightPanel();
@@ -67,8 +68,6 @@ void MAttack(Character& character, Monster& monster)
 
 bool ReadIntAt(int x, int y, int& outValue)
 {
-    LogManager::GoToXY(x, y);
-
     if (!(std::cin >> outValue))
     {
         std::cin.clear();
@@ -111,6 +110,8 @@ void RefreshBattleScreen(Character& character, Monster& monster)
         character.GetDef(),
         character.GetSpd(),
         character.GetGold(),
+        character.GetCurrentExp(),
+        character.GetMaxExp(),
         character.GetItems()  // [한길] 이 함수가 출력되는 곳에 모두 GetItem() 함수 추가.
     );
 
@@ -135,7 +136,6 @@ void Battle(Character& character, Monster& monster)
 
     LogManager::PrintBattleLog("[" + monster.GetName() + "] 와(과) 조우했습니다!", 0);
     LogManager::PrintBattleLog("전투에 돌입합니다!!!", 1);
-
     WaitForNext();
 
     if (!isplayerfast)
@@ -156,7 +156,6 @@ void Battle(Character& character, Monster& monster)
             WaitForNext();
             return;
         }
-
         WaitForNext();
     }
 
@@ -203,7 +202,6 @@ void Battle(Character& character, Monster& monster)
                 WaitForNext();
                 break;
             }
-
             WaitForNext();
         }
         else if (choice == 2)
@@ -276,7 +274,6 @@ void Battle(Character& character, Monster& monster)
                 WaitForNext();
                 break;
             }
-
             WaitForNext();
         }
     }
@@ -307,7 +304,6 @@ int main()
         {
             LogManager::ClearBattleLogArea();
             LogManager::PrintBattleLog("숫자를 입력해주세요.", 0);
-            WaitForNext();
             continue;
         }
 
@@ -328,7 +324,82 @@ int main()
 
         case 2:
         {
-            LogManager::PrintMessage("인벤토리 추가 예정.");
+            LogManager::DrawBattleUI();
+            LogManager::ClearBattleLogArea();
+            LogManager::ClearInfoArea();
+
+            LogManager::PrintBattleLog("[ 인벤토리 ]", 0);
+            LogManager::PrintBattleLog("사용할 아이템 번호를", 1);
+            LogManager::PrintBattleLog("선택하세요.", 2);
+
+            player.ShowItems();
+
+            LogManager::PrintInfoBox("선택 : ", 7);
+
+            int choice = 0;
+            LogManager::GoToXY(9, 25);
+            if (!(std::cin >> choice))
+            {
+                LogManager::ClearBattleLogArea();
+                LogManager::PrintBattleLog("숫자를 입력해주세요.", 0);
+                WaitForNext();
+                break;
+            }
+
+            if (choice == 0)
+            {
+                LogManager::ClearBattleLogArea();
+                break;
+            }
+
+            int beforeHP = player.GetCurrentHP();
+            bool usedItem = player.UseItem(choice - 1);
+            int afterHP = player.GetCurrentHP();
+            int healed = afterHP - beforeHP;
+
+            LogManager::DrawBattleUI();
+            LogManager::ClearBattleLogArea();
+
+            LogManager::PrintPlayerInfo(
+                player.GetName(),
+                player.GetCurrentHP(),
+                player.GetMaxHP(),
+                player.GetAtt(),
+                player.GetDef(),
+                player.GetSpd(),
+                player.GetGold(),
+                player.GetCurrentExp(),
+                player.GetMaxExp(),
+                player.GetItems()
+            );
+            LogManager::DrawMainMenuInRightPanel();
+
+            if (!usedItem)
+            {
+                LogManager::PrintBattleLog("아이템을 사용할 수", 0);
+                LogManager::PrintBattleLog("없습니다.", 1);
+                WaitForNext();
+            }
+            else if (healed > 0)
+            {
+                LogManager::PrintBattleLog("포션을 사용했습니다!", 0);
+                LogManager::PrintBattleLog(
+                    std::to_string(healed) + " 만큼 회복되었습니다.", 1
+                );
+                LogManager::PrintBattleLog(
+                    "현재 HP : " + std::to_string(player.GetCurrentHP()) + " / " +
+                    std::to_string(player.GetMaxHP()), 2
+                );
+                WaitForNext();
+            }
+            else
+            {
+                LogManager::PrintBattleLog("포션을 사용했지만", 0);
+                LogManager::PrintBattleLog("회복되지 않았습니다.", 1);
+                WaitForNext();
+            }
+
+            WaitForNext();
             break;
         }
 
@@ -336,20 +407,19 @@ int main()
         {
             LogManager::PrintMessage("상점에 입장합니다");
             Shop::ShowShopMenu();
-            int input;
-            std::cin >> input;
-            if (input == 1)
+
+            int input = 0;
+            if (!(std::cin >> input))
             {
-                Shop::BuyItem(player, input);
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                LogManager::PrintMessage("숫자를 입력해주세요.");
+                WaitForNext();
+                break;
             }
-            else if (input == 2)
-            {
-                Shop::BuyItem(player, input);
-            }
-            else
-            {
-                Shop::BuyItem(player, input);
-            }
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+            Shop::BuyItem(player, input);
             break;
         }
 

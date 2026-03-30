@@ -256,17 +256,18 @@ void LogManager::PrintMonsterBox(const std::string& message, int line)
     std::cout << message;
 }
 
-void LogManager::PrintPlayerInfo(const std::string& name, int hp, int maxHP, int att, int def, int spd, int gold, const std::vector<std::shared_ptr<Item>>& items)  //[한길] 수정
+void LogManager::PrintPlayerInfo(const std::string& name, int hp, int maxHP, int att, int def, int spd, int gold,  float currentExp, float maxExp,  const std::vector<std::shared_ptr<Item>>& items)  
 {
     ClearInfoArea();
 
     PrintInfoBox("이름 : " + name, 0);
     PrintInfoBox("HP : " + std::to_string(hp) + " / " + std::to_string(maxHP), 1);
-    PrintInfoBox("공격력 : " + std::to_string(att), 2);
-    PrintInfoBox("방어력 : " + std::to_string(def), 3);
-    PrintInfoBox("속도 : " + std::to_string(spd), 4);
-    PrintInfoBox("골드 : " + std::to_string(gold), 5);
-    int line = 6;          // [한길] 6번 라인부터 아이템 목록 출력.
+    PrintInfoBox("Exp: " + std::to_string((int)currentExp) + "/ " + std::to_string((int)maxExp), 2);
+    PrintInfoBox("공격력 : " + std::to_string(att), 3);
+    PrintInfoBox("방어력 : " + std::to_string(def), 4);
+    PrintInfoBox("속도 : " + std::to_string(spd), 5);
+    PrintInfoBox("골드 : " + std::to_string(gold), 6);
+    int line = 7;          // [한길] 6번 라인부터 아이템 목록 출력. - [성윤] 아이템 목록이 7번 라인부터 출력되도록 수정.
     for (const auto& item : items)
     {
         if (line > 8) // 정보창 크기 제한이 있다면 방어 코드

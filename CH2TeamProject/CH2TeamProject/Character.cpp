@@ -137,6 +137,16 @@ int Character::GetGold() const
     return Gold;
 }
 
+float Character::GetCurrentExp() const
+{
+    return LevelComp->GetCurrentExp();
+}
+
+float Character::GetMaxExp() const
+{
+    return LevelComp->GetMaxExp();
+}
+
 const std::vector<std::shared_ptr<Item>>& Character::GetItems() const  // [한길] 아이템 출력 위한 Getter 추가.
 {
     return items;
@@ -209,3 +219,4 @@ void Character::AddItem(std::shared_ptr<Item> newItem) //[한길] 아이템 더�
     }
     items.push_back(newItem);
 }
+
