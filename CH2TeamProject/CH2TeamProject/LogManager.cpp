@@ -275,13 +275,37 @@ void LogManager::PrintPlayerInfo(const std::string& name, int level, int hp, int
     ClearInfoArea();
 
     PrintInfoBox("이름 : " + name, 0);          // [한길] 3.30레벨 출력 추가.
-    PrintInfoBox("Level : " + std::to_string(level) + "             "
-        + "Exp: " + std::to_string((int)currentExp) + "/ " + std::to_string((int)maxExp), 1);
-    PrintInfoBox("HP : " + std::to_string(hp) + " / " + std::to_string(maxHP), 2);
-    PrintInfoBox("공격력 : " + std::to_string(att) + "           "
-        + "방어력 : " + std::to_string(def), 3);
-    PrintInfoBox("속도 : " + std::to_string(spd), 4);
-    PrintInfoBox("골드 : " + std::to_string(gold), 5);
+    PrintInfoBox("HP : " + std::to_string(hp) + " / " + std::to_string(maxHP), 1);
+
+    GoToXY(2, 20);
+    std::cout << "Level : " << level;
+
+    GoToXY(24, 20);
+    std::cout << "Exp : " << (int)currentExp << " / " << (int)maxExp;
+
+    GoToXY(2, 21);
+    std::cout << "공격력 : " << att;
+
+    GoToXY(24, 21);
+    std::cout << "방어력 : " << def;
+
+    GoToXY(2, 22);
+    std::cout << "속도 : " << spd;
+
+    GoToXY(2, 23);
+    std::cout << "골드 : " << gold;
+
+    if (items.size() > 0)
+    {
+        GoToXY(2, 24);
+        std::cout << "미니 포션 : " << items[0]->GetCount() << "개";
+    }
+
+    if (items.size() > 1)
+    {
+        GoToXY(24, 24);
+        std::cout << "대형 포션 : " << items[1]->GetCount() << "개";
+    }
     /*int line = 7;          // [한길] 6번 라인부터 아이템 목록 출력. - [성윤] 아이템 목록이 7번 라인부터 출력되도록 수정.
     for (const auto& item : items)
     {
@@ -291,8 +315,6 @@ void LogManager::PrintPlayerInfo(const std::string& name, int level, int hp, int
         }
         PrintInfoBox(item->GetName() + " : " + std::to_string(item->GetCount()) + "개", line++);
     }*/
-    PrintInfoBox("미니 포션 : " + std::to_string(items[0]->GetCount()) + "개" + "       "   // [한길] 3.30전투시 대형 포션 잘려서 미니 포션 옆에 출력되게 함.
-        + "대형 포션 : " + std::to_string(items[1]->GetCount()) + "개", 7);
 }
 
 void LogManager::PrintMonsterInfo(const std::string& name, int hp, int maxHP, int att, int def, int spd)
