@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Battle.cpp" />
     <ClCompile Include="Bear.cpp" />
     <ClCompile Include="BigNuguri.cpp" />
     <ClCompile Include="Character.cpp" />
@@ -136,16 +137,19 @@
     <ClCompile Include="LogManager.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="Render.cpp" />
     <ClCompile Include="Shop.cpp" />
     <ClCompile Include="Slime.cpp" />
     <ClCompile Include="Snake.cpp" />
     <ClCompile Include="Spider.cpp" />
+    <ClCompile Include="Start.cpp" />
     <ClCompile Include="Tiger.cpp" />
     <ClCompile Include="WildBoar.cpp" />
     <ClCompile Include="WildCat.cpp" />
     <ClCompile Include="Wolf.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Battle.h" />
     <ClInclude Include="Bear.h" />
     <ClInclude Include="BigNuguri.h" />
     <ClInclude Include="Character.h" />
@@ -154,10 +158,12 @@
     <ClInclude Include="LevelComponent.h" />
     <ClInclude Include="LogManager.h" />
     <ClInclude Include="Monster.h" />
+    <ClInclude Include="Render.h" />
     <ClInclude Include="Shop.h" />
     <ClInclude Include="Slime.h" />
     <ClInclude Include="Snake.h" />
     <ClInclude Include="Spider.h" />
+    <ClInclude Include="Start.h" />
     <ClInclude Include="Tiger.h" />
     <ClInclude Include="WildBoar.h" />
     <ClInclude Include="WildCat.h" />

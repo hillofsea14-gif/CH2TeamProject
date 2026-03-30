@@ -52,6 +52,15 @@
     <ClCompile Include="LevelComponent.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
+    <ClCompile Include="Start.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Render.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Battle.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bear.h">
@@ -100,6 +109,15 @@
       <Filter>Items</Filter>
     </ClInclude>
     <ClInclude Include="LevelComponent.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Start.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Render.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Battle.h">
       <Filter>Systems</Filter>
     </ClInclude>
   </ItemGroup>
