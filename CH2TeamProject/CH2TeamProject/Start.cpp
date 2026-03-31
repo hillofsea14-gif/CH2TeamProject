@@ -1,6 +1,6 @@
 ﻿// Start.cpp
 
-
+#include <windows.h>
 #include <iostream>
 #include <string>
 #include <limits>
@@ -25,16 +25,21 @@
 #include "Shop.h"
 #include "Battle.h"
 #include "Render.h"
+#pragma comment(lib, "winmm.lib")
 
 int GameStart()
 {
+    ::PlaySoundA("opening.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+
     std::string name;
     int menu = 0;
 
     LogManager::PrintStartScreen();
     std::cin >> name;
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cin.ignore((std::numeric_limits<std::streamsize>::max)(), '\n');
     LogManager::PrintMessage("환영합니다, " + name + "님!");
+
+    ::PlaySoundA("mainmenu.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 
     Character player(name);
     auto InitializeMiniPotion = std::make_shared<MiniPotion>(3);     // [한길] 미니포션 3개 가진 객체를 생성하고 포인터를 반환함.
@@ -57,6 +62,8 @@ int GameStart()
         {
         case 1:
         {
+            ::PlaySoundA("battle.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+
             LogManager::PrintMessage("전투에 입장합니다.");
             srand(time(NULL));
             if (player.GetLevel() < 5 && player.GetCurrentHP() > 0) // [승민] 3.30 전투 입장시 플레이어 레벨에 따라 등장하는 몬스터가 달라지도록 수정.
@@ -110,11 +117,13 @@ int GameStart()
                 }
             }
             LogManager::ClearScreen();
+            ::PlaySoundA("mainmenu.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
             break;
         }
 
         case 2:
         {
+            ::PlaySoundA("shop.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
             LogManager::DrawMainUI();
             LogManager::ClearBattleLogArea();
             LogManager::ClearInfoArea();
@@ -199,11 +208,14 @@ int GameStart()
             }
 
             WaitForNext();
+            ::PlaySoundA("mainmenu.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
             break;
         }
 
         case 3:
         {
+            ::PlaySoundA("shop.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+
             LogManager::DrawMainUI();
             LogManager::ClearBattleLogArea();
             LogManager::ClearInfoArea();
@@ -226,6 +238,8 @@ int GameStart()
                 LogManager::ClearBattleLogArea();
                 LogManager::PrintBattleLog("숫자를 입력해주세요.", 0);
                 WaitForNext();
+
+                ::PlaySoundA("mainmenu.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
                 break;
             }
 
