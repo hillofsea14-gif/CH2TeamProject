@@ -62,12 +62,11 @@ int GameStart()
         {
         case 1:
         {
-            ::PlaySoundA("battle.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
-
             LogManager::PrintMessage("전투에 입장합니다.");
             srand(time(NULL));
             if (player.GetLevel() < 5 && player.GetCurrentHP() > 0) // [승민] 3.30 전투 입장시 플레이어 레벨에 따라 등장하는 몬스터가 달라지도록 수정.
             {
+                ::PlaySoundA("dungeon1.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
                 Slime slime(player.GetLevel());
                 if (Battle(player, slime) == 444) return 0;  //[한길] 3.31 사망시 바로 사망창으로 이동하게 추가함.
                 if (player.GetCurrentHP() > 0)
@@ -78,6 +77,7 @@ int GameStart()
             }
             else if (player.GetLevel() >= 5 && player.GetLevel() < 10 && player.GetCurrentHP() > 0)
             {
+                ::PlaySoundA("dungeon2.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
                 WildCat wildcat(player.GetLevel());
                 if (Battle(player, wildcat) == 444) return 0;
                 if (player.GetCurrentHP() > 0)
@@ -88,6 +88,7 @@ int GameStart()
             }
             else if (player.GetLevel() >= 10 && player.GetLevel() < 15 && player.GetCurrentHP() > 0)
             {
+                ::PlaySoundA("dungeon3.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
                 Spider spider(player.GetLevel());
                 if (Battle(player, spider) == 444) return 0;
                 if (player.GetCurrentHP() > 0)
@@ -98,11 +99,13 @@ int GameStart()
             }
             else if (player.GetLevel() >= 15 && player.GetLevel() < 20 && player.GetCurrentHP() > 0)
             {
+                ::PlaySoundA("dungeon4.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
                 BigNuguri bignuguri(player.GetLevel());
                 if (Battle(player, bignuguri) == 444) return 0;
             }
             else if (player.GetLevel() >= 20 && player.GetCurrentHP() > 0)
             {
+                ::PlaySoundA("dungeon5.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
                 WildBoar wildboar(player.GetLevel());
                 if (Battle(player, wildboar) == 444) return 0;
                 if (player.GetCurrentHP() > 0)
@@ -131,7 +134,7 @@ int GameStart()
 
         case 2:
         {
-            ::PlaySoundA("shop.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+            ::PlaySoundA("backpack.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
             LogManager::DrawMainUI();
             LogManager::ClearBattleLogArea();
             LogManager::ClearInfoArea();
