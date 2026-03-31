@@ -54,7 +54,7 @@ public:
 
     const std::vector<std::shared_ptr<Item>>& GetItems() const; // [한길] 아이템 출력 위한 Getter 추가.
 
-    std::shared_ptr<Item> FindItemByName(const std::string& itemName);    // [한길] 3.30 추가
+    std::shared_ptr<Item> FindItemByName(const std::string& itemName) const;    // [한길] 3.30 추가 3.31 읽기 전용으로 수정. shop에서 판매창에 아이템 소지 개수 출력하기위함임.
 
 
     // Setter()

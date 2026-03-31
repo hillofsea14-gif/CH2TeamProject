@@ -21,34 +21,60 @@ void Shop::ShowShopTopMenu(const Character& player)
     std::cout << "골드 : " << player.GetGold();
 }
 
-void Shop::ShowShopBuyMenu(const Character& player)
+void Shop::ShowShopBuyMenu(const Character& player)    //[한길] 3.31 미니포션과 대형 포션 몇 개 있는지 출력.
 {
-    // 정보창에 상점 물품 목록 출력
+    // 1. 플레이어 인벤토리에서 아이템 정보 가져오기
+    auto miniPotion = player.FindItemByName("미니 포션");
+    auto bigPotion = player.FindItemByName("대형 포션");
+
+    // 2. 개수 파악 (아이템이 없으면 0개로 표시)
+    int miniCount = (miniPotion != nullptr) ? miniPotion->GetCount() : 0;
+    int bigCount = (bigPotion != nullptr) ? bigPotion->GetCount() : 0;
+
+    // 정보창 상단 출력
     LogManager::GoToXY(2, 18);
     std::cout << "============= 중간 상점 =============";
-    LogManager::PrintInfoBox("1. 미니 포션 구매(50G)", 1);
-    LogManager::PrintInfoBox("2. 대형 포션 구매(100G)", 2);
+
+    // 3. 문자열 합치기를 통해 개수 표시 (std::to_string 사용)
+    LogManager::PrintInfoBox("1. 미니 포션 구매(50G) [소지: " + std::to_string(miniCount) + "개]", 1);
+    LogManager::PrintInfoBox("2. 대형 포션 구매(100G) [소지: " + std::to_string(bigCount) + "개]", 2);
     LogManager::PrintInfoBox("0. 나가기", 3);
+
+    // 나머지 빈칸 채우기
     for (int i = 4; i < 10; i++)
     {
-        LogManager::PrintInfoBox(" ", i); // 빈칸 채우기
+        LogManager::PrintInfoBox(" ", i);
     }
+
     LogManager::GoToXY(29, 24);
     std::cout << "골드 : " << player.GetGold();
 }
 
-void Shop::ShowShopSellMenu(const Character& player)
+void Shop::ShowShopSellMenu(const Character& player)    //[한길] 3.31 미니포션과 대형 포션 몇 개 있는지 출력.
 {
-    // 정보창에 상점 물품 목록 출력
+    // 1. 플레이어 인벤토리에서 아이템 정보 가져오기
+    auto miniPotion = player.FindItemByName("미니 포션");
+    auto bigPotion = player.FindItemByName("대형 포션");
+
+    // 2. 개수 파악 (아이템이 없으면 0개로 표시)
+    int miniCount = (miniPotion != nullptr) ? miniPotion->GetCount() : 0;
+    int bigCount = (bigPotion != nullptr) ? bigPotion->GetCount() : 0;
+
+    // 정보창 상단 출력
     LogManager::GoToXY(2, 18);
-    std::cout << "============= 중간 상점 =============";
-    LogManager::PrintInfoBox("1. 미니 포션 판매(30G)", 1);
-    LogManager::PrintInfoBox("2. 대형 포션 판매(60G)", 2);
+    std::cout << "============= 판매 모드 =============";
+
+    // 3. 문자열 합치기를 통해 개수 표시 (std::to_string 사용)
+    LogManager::PrintInfoBox("1. 미니 포션 판매(30G) [소지: " + std::to_string(miniCount) + "개]", 1);
+    LogManager::PrintInfoBox("2. 대형 포션 판매(60G) [소지: " + std::to_string(bigCount) + "개]", 2);
     LogManager::PrintInfoBox("0. 나가기", 3);
+
+    // 나머지 빈칸 채우기
     for (int i = 4; i < 10; i++)
     {
-        LogManager::PrintInfoBox(" ", i); // 빈칸 채우기
+        LogManager::PrintInfoBox(" ", i);
     }
+
     LogManager::GoToXY(29, 24);
     std::cout << "골드 : " << player.GetGold();
 }

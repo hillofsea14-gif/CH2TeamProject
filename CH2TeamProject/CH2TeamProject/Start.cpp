@@ -282,10 +282,14 @@ int GameStart()
                     }
                     else if (choice == 1)
                     {
+                        LogManager::ClearInfoArea();            // [한길] 3.31 아이템 판매시 소지개수도 갱신되게함. 
+                        Shop::ShowShopSellMenu(player);         // 하지만 밑에 잔액부분이 잘림. but 골드게 표시되기 때문에 상관없어보임
                         LogManager::PrintBattleLog("미니 포션을 구매했습니다!", 0);
                     }
                     else if (choice == 2)
                     {
+                        LogManager::ClearInfoArea(); 
+                        Shop::ShowShopSellMenu(player);
                         LogManager::PrintBattleLog("대형 포션을 구매했습니다!", 0);
                     }
 
@@ -330,10 +334,14 @@ int GameStart()
                     }
                     else if (choice == 1)
                     {
+                        LogManager::ClearInfoArea();            // [한길] 3.31 아이템 판매시 소지개수도 갱신되게함. 
+                        Shop::ShowShopSellMenu(player);         // 하지만 밑에 잔액부분이 잘림. but 골드게 표시되기 때문에 상관없어보임
                         LogManager::PrintBattleLog("미니 포션을 판매했습니다!", 0);
                     }
                     else if (choice == 2)
                     {
+                        LogManager::ClearInfoArea();
+                        Shop::ShowShopSellMenu(player);
                         LogManager::PrintBattleLog("대형 포션을 판매했습니다!", 0);
                     }
 

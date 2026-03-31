@@ -163,7 +163,7 @@ const std::vector<std::shared_ptr<Item>>& Character::GetItems() const  // [한�
     return items;
 }
 
-std::shared_ptr<Item> Character::FindItemByName(const std::string& itemName) // [한길] 3.30 추가
+std::shared_ptr<Item> Character::FindItemByName(const std::string& itemName) const // [한길] 3.30 추가 3.31 읽기 전용으로 수정.
 {
     for (auto& item : items) {
         if (item->GetName() == itemName) {
