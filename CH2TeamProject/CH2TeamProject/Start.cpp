@@ -115,15 +115,23 @@ int GameStart()
 
         case 2:
         {
-            LogManager::DrawBattleUI();
+            LogManager::DrawMainUI();
             LogManager::ClearBattleLogArea();
             LogManager::ClearInfoArea();
+            LogManager::ClearRightPanel();
 
+            //LogManager::Print
             LogManager::PrintBattleLog("[ 인벤토리 ]", 0);
             LogManager::PrintBattleLog("사용할 아이템 번호를", 1);
             LogManager::PrintBattleLog("선택하세요.", 2);
+            
+            LogManager::GoToXY(61, 1);
+            std::cout << "[ 인벤토리 화면 ]";
 
             player.ShowItems();
+
+            LogManager::GoToXY(29, 24);
+            std::cout << "골드 : " << player.GetGold();
 
             LogManager::PrintInfoBox("선택 : ", 7);
 
@@ -196,13 +204,15 @@ int GameStart()
 
         case 3:
         {
-            LogManager::DrawBattleUI();
+            LogManager::DrawMainUI();
             LogManager::ClearBattleLogArea();
             LogManager::ClearInfoArea();
             LogManager::ClearRightPanel();
 
-            LogManager::PrintBattleLog("[ 상점 ]", 0);
+            LogManager::GoToXY(63,1);
+            std::cout << "[ 상점 화면 ]";
             LogManager::PrintBattleLog("원하는 기능을 선택하세요.", 1);
+
             //LogManager::PrintMessage("상점에 입장합니다");  //[한길] 3.30 수정.[성윤] 불필요한 메시지 제거.
             Shop::ShowShopTopMenu(player);
 
@@ -330,7 +340,7 @@ int GameStart()
 
         default:
         {
-            LogManager::DrawBattleUI();
+            LogManager::DrawMainUI();
             LogManager::ClearBattleLogArea();
             LogManager::PrintBattleLog("잘못된 입력입니다.", 0);
             WaitForNext();

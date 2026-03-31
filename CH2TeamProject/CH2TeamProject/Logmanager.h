@@ -23,6 +23,7 @@ public:
     static void GoToXY(int x, int y);
     static void ClearScreen();
     static void DrawBattleUI();
+    static void DrawMainUI();
     static void PrintBattleLog(const std::string& message, int line);
     static void PrintInfoBox(const std::string& message, int line);
     static void PrintMonsterBox(const std::string& message, int line);
@@ -42,5 +43,6 @@ public:
     static void ClearBattleLogArea();
     static void ClearInfoArea();
     static void SetConsoleSize(int Width, int Height);
+    
 
 };

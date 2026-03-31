@@ -13,7 +13,7 @@ void WaitForNext()
 
 void ShowMainScreen(Character& character)
 {
-    LogManager::DrawBattleUI();
+    LogManager::DrawMainUI();
 
     LogManager::PrintBattleLog("집으로 돌아가기 위한 여정", 0);
     LogManager::PrintBattleLog("행동을 선택하세요.", 1);

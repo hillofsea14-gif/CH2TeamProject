@@ -227,6 +227,52 @@ void LogManager::DrawBattleUI()
     std::cout << "[ 몬스터 / 전투 화면 ]";
 }
 
+void LogManager::DrawMainUI()
+{
+    ClearScreen();
+
+    const int width = 100;
+    const int height = 30;
+
+    // 바깥 테두리
+    for (int x = 0; x < width; x++)
+    {
+        GoToXY(x, 0);
+        std::cout << "=";
+        GoToXY(x, height - 1);
+        std::cout << "=";
+    }
+
+    for (int y = 0; y < height; y++)
+    {
+        GoToXY(0, y);
+        std::cout << "|";
+        GoToXY(width - 1, y);
+        std::cout << "|";
+    }
+
+    // 왼쪽 / 오른쪽 구분선
+    for (int y = 1; y < height - 1; y++)
+    {
+        GoToXY(41, y);
+        std::cout << "|";
+    }
+
+    // 왼쪽 위 / 아래 구분선
+    for (int x = 1; x < 41; x++)
+    {
+        GoToXY(x, 15);
+        std::cout << "-";
+    }
+
+    // 제목
+    GoToXY(2, 1);
+    std::cout << "[ 배틀 로그 ]";
+
+    GoToXY(2, 16);
+    std::cout << "[ 정보 ]";
+}
+
 void LogManager::PrintBattleLog(const std::string& message, int line)
 {
     std::string output = message;
