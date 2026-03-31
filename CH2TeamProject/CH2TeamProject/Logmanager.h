@@ -23,6 +23,7 @@ public:
     static void PrintStartScreen();
     static void PrintEndScreen();         // [한길] 3.31 엔딩 추가.
     static void PrintPlayerDeadScreen();         // [한길] 3.31 플레이어 사망 추가.
+    static void PrintStopGameScreen();         // [한길] 3.31 4번눌러 게임 종료시 출력 추가.
     static void PrintCenterInputPrompt();
     static void GoToXY(int x, int y);
     static void ClearScreen();

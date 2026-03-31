@@ -3,6 +3,7 @@
 #include "Start.h"
 #include "End.h"
 #include "PlayerDead.h"
+#include "Stop.h"
 
 
 
@@ -18,5 +19,10 @@ int main()
     if (gameState == 0)       //[한길] 3.31 플레이어 사망시 사망화면 출력.
     {
         ShowDeadEnding();
+    }
+
+    if (gameState == 1)
+    {
+        ShowStopEnding();
     }
 }

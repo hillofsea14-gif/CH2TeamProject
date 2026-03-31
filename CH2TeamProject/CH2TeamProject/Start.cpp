@@ -360,7 +360,7 @@ int GameStart()
         case 4:
         {
             LogManager::PrintMessage("게임을 종료합니다.");
-            return 0;
+            return 1;          //[한길] 3.31 4번 눌러 게임 종료시 다른 화면 출력 위해 1 반환하게함.
         }
 
         default:

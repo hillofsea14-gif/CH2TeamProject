@@ -145,6 +145,7 @@
     <ClCompile Include="Snake.cpp" />
     <ClCompile Include="Spider.cpp" />
     <ClCompile Include="Start.cpp" />
+    <ClCompile Include="Stop.cpp" />
     <ClCompile Include="Tiger.cpp" />
     <ClCompile Include="WildBoar.cpp" />
     <ClCompile Include="WildCat.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="Snake.h" />
     <ClInclude Include="Spider.h" />
     <ClInclude Include="Start.h" />
+    <ClInclude Include="Stop.h" />
     <ClInclude Include="Tiger.h" />
     <ClInclude Include="WildBoar.h" />
     <ClInclude Include="WildCat.h" />

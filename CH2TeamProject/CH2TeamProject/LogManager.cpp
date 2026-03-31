@@ -149,7 +149,7 @@ void LogManager::PrintEndScreen()          // [한길] 3.31 엔딩 추가.
     //std::cout << "                                                >> ";
 }
 
-void LogManager::PrintPlayerDeadScreen()
+void LogManager::PrintPlayerDeadScreen()        // [한길] 3.31 캐릭터 사망 추가.
 {
     std::cout << "\n\n\n\n\n\n";
 
@@ -165,7 +165,24 @@ void LogManager::PrintPlayerDeadScreen()
     std::cout << "                                                          당신은\n\n";
     std::cout << "                                                          집으로\n\n";
     std::cout << "                                                   돌아가지 못했습니다..\n\n";
-    std::cout << "                                                ==========================\n\n\n";
+    std::cout << "                                                ===========================\n\n\n";
+    std::cout << "\n";
+}
+
+void LogManager::PrintStopGameScreen()  // [한길] 3.31 4번 눌러 게임 종료시 추가.
+{
+    std::cout << "\n\n\n\n\n\n";
+
+
+    std::cout << "                                                ==========================\n\n";
+    std::cout << "                                                         EXIT GAME\n\n";
+    std::cout << "                                                ==========================\n\n";
+    std::cout << "\n\n";
+
+    std::cout << "                                                ===========================\n\n";
+    std::cout << "                                                     당신과 또 만나기를\n\n";
+    std::cout << "                                                         기대할게요\n\n";
+    std::cout << "                                                ===========================\n\n\n";
     std::cout << "\n";
 }
 
