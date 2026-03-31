@@ -133,7 +133,7 @@ int GameStart()
             LogManager::PrintBattleLog("[ 인벤토리 ]", 0);
             LogManager::PrintBattleLog("사용할 아이템 번호를", 1);
             LogManager::PrintBattleLog("선택하세요.", 2);
-            
+
             LogManager::GoToXY(61, 1);
             std::cout << "[ 인벤토리 화면 ]";
 
@@ -156,6 +156,7 @@ int GameStart()
             if (choice == 0)
             {
                 LogManager::ClearBattleLogArea();
+                ::PlaySoundA("mainmenu.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
                 break;
             }
 
@@ -221,7 +222,7 @@ int GameStart()
             LogManager::ClearInfoArea();
             LogManager::ClearRightPanel();
 
-            LogManager::GoToXY(63,1);
+            LogManager::GoToXY(63, 1);
             std::cout << "[ 상점 화면 ]";
             LogManager::PrintBattleLog("원하는 기능을 선택하세요.", 1);
 
@@ -238,8 +239,6 @@ int GameStart()
                 LogManager::ClearBattleLogArea();
                 LogManager::PrintBattleLog("숫자를 입력해주세요.", 0);
                 WaitForNext();
-
-                ::PlaySoundA("mainmenu.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
                 break;
             }
 
@@ -343,6 +342,7 @@ int GameStart()
             {
                 LogManager::PrintMessage("잘못된 입력입니다.");
             }
+            ::PlaySoundA("mainmenu.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
             break;
         }
 
