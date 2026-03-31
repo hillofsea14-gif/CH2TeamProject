@@ -13,4 +13,4 @@ void PAttack(Character& character, Monster& monster);
 void MAttack(Character& character, Monster& monster);
 
 
-void Battle(Character& character, Monster& monster);
+int Battle(Character& character, Monster& monster);   // [한길] 3.31 죽었을 때 페이지 만들기 위해 반환값 자료형 int로 수정.

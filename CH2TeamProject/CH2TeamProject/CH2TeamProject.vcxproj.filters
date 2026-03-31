@@ -61,6 +61,12 @@
     <ClCompile Include="Battle.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
+    <ClCompile Include="End.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerDead.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bear.h">
@@ -118,6 +124,12 @@
       <Filter>Systems</Filter>
     </ClInclude>
     <ClInclude Include="Battle.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="End.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerDead.h">
       <Filter>Systems</Filter>
     </ClInclude>
   </ItemGroup>

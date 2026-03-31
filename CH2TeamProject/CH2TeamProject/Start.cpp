@@ -69,51 +69,59 @@ int GameStart()
             if (player.GetLevel() < 5 && player.GetCurrentHP() > 0) // [승민] 3.30 전투 입장시 플레이어 레벨에 따라 등장하는 몬스터가 달라지도록 수정.
             {
                 Slime slime(player.GetLevel());
-                Battle(player, slime);
+                if (Battle(player, slime) == 444) return 0;  //[한길] 3.31 사망시 바로 사망창으로 이동하게 추가함.
                 if (player.GetCurrentHP() > 0)
                 {
                     Wolf wolf(player.GetLevel()); // [승민] 몬스터 생성시 플레이어 레벨을 매개변수로 받아야함.[한길] 3.30 캐릭터에 GetLevel 추가
-                    Battle(player, wolf);
+                    if (Battle(player, wolf) == 444) return 0;
                 }
             }
             else if (player.GetLevel() >= 5 && player.GetLevel() < 10 && player.GetCurrentHP() > 0)
             {
                 WildCat wildcat(player.GetLevel());
-                Battle(player, wildcat);
+                if (Battle(player, wildcat) == 444) return 0;
                 if (player.GetCurrentHP() > 0)
                 {
                     Gorani gorani(player.GetLevel());
-                    Battle(player, gorani);
+                    if (Battle(player, gorani) == 444) return 0;
                 }
             }
             else if (player.GetLevel() >= 10 && player.GetLevel() < 15 && player.GetCurrentHP() > 0)
             {
                 Spider spider(player.GetLevel());
-                Battle(player, spider);
+                if (Battle(player, spider) == 444) return 0;
                 if (player.GetCurrentHP() > 0)
                 {
                     Snake snake(player.GetLevel());
-                    Battle(player, snake);
+                    if (Battle(player, snake) == 444) return 0;
                 }
             }
             else if (player.GetLevel() >= 15 && player.GetLevel() < 20 && player.GetCurrentHP() > 0)
             {
                 BigNuguri bignuguri(player.GetLevel());
-                Battle(player, bignuguri);
+                if (Battle(player, bignuguri) == 444) return 0;
             }
             else if (player.GetLevel() >= 20 && player.GetCurrentHP() > 0)
             {
                 WildBoar wildboar(player.GetLevel());
-                Battle(player, wildboar);
+                if (Battle(player, wildboar) == 444) return 0;
                 if (player.GetCurrentHP() > 0)
                 {
                     Bear bear(player.GetLevel());
-                    Battle(player, bear);
+                    if (Battle(player, bear) == 444) return 0;
                 }
                 if (player.GetCurrentHP() > 0)
                 {
                     Tiger tiger(player.GetLevel());
-                    Battle(player, tiger);
+                    if (Battle(player, tiger) == 444) return 0;
+
+                    // [한길] 3.31 전투 후 플레이어가 살아있다면 (보스 승리)
+                    if (player.GetCurrentHP() > 0)
+                    {
+                        LogManager::ClearScreen();
+                        //LogManager::PrintMessage("축하합니다! 전설의 타이거를 물리쳤습니다!");
+                        return 777; // 엔딩 코드 반환
+                    }
                 }
             }
             LogManager::ClearScreen();

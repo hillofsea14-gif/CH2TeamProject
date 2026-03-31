@@ -128,6 +128,47 @@ void LogManager::PrintStartScreen()
     std::cout << "                                                >> ";
 }
 
+void LogManager::PrintEndScreen()          // [한길] 3.31 엔딩 추가.
+{
+    std::cout << "\n\n\n\n\n\n";
+
+
+    std::cout << "                                                ==========================\n\n";
+    std::cout << "                                                        GAME CLEAR!\n\n";
+    std::cout << "                                                ==========================\n\n";
+    std::cout << "\n\n";
+
+    std::cout << "                                                ===========================\n\n";
+    std::cout << "                                                      당신을 가로막던\n\n";
+    std::cout << "                                                   모든 장애물을 극복하고\n\n";
+    std::cout << "                                                       당신의 안락한\n\n";
+    std::cout << "                                                          집으로\n\n";
+    std::cout << "                                                        돌아왔습니다\n\n";
+    std::cout << "                                                ==========================\n\n\n";
+    std::cout << "\n";
+    //std::cout << "                                                >> ";
+}
+
+void LogManager::PrintPlayerDeadScreen()
+{
+    std::cout << "\n\n\n\n\n\n";
+
+
+    std::cout << "                                                ==========================\n\n";
+    std::cout << "                                                        GAME OVER..\n\n";
+    std::cout << "                                                ==========================\n\n";
+    std::cout << "\n\n";
+
+    std::cout << "                                                ===========================\n\n";
+    std::cout << "                                                 당신의 눈앞이 캄캄해집니다.\n\n";
+    std::cout << "                                                   장애물을 극복하지 못한\n\n";
+    std::cout << "                                                          당신은\n\n";
+    std::cout << "                                                          집으로\n\n";
+    std::cout << "                                                   돌아가지 못했습니다..\n\n";
+    std::cout << "                                                ==========================\n\n\n";
+    std::cout << "\n";
+}
+
 void LogManager::PrintCenter(const std::string& text)
 {
     const int width = 100;

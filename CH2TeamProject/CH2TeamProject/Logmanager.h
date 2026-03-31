@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include <string>
 #include <vector>
+#include <memory>      // [한길] 엔딩 추가후 오류나서 원인찾고 수정함.
+#include "Item.h"
 
 class Item;
 
@@ -19,6 +21,8 @@ public:
     static void PrintEnemyTurn();
     static void PrintMainMenu();
     static void PrintStartScreen();
+    static void PrintEndScreen();         // [한길] 3.31 엔딩 추가.
+    static void PrintPlayerDeadScreen();         // [한길] 3.31 플레이어 사망 추가.
     static void PrintCenterInputPrompt();
     static void GoToXY(int x, int y);
     static void ClearScreen();

@@ -4,7 +4,7 @@
 #include "LogManager.h"
 
 Character::Character(std::string InName)
-    : name(InName), CurrentHP(100), MaxHP(100), Def(5), Att(1155), Spd(500), Dam(0), Gold(0) // [승민] 3.30 초기 스탯 변경
+    : name(InName), CurrentHP(100), MaxHP(100), Def(5), Att(1000), Spd(500), Dam(0), Gold(0) // [승민] 3.30 초기 스탯 변경 [한길] 3.31 빠른 클리어 위해 초기 스탯 변경.
 {
     LevelComp = new LevelComponent(this);
 }

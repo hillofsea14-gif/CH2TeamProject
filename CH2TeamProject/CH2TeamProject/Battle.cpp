@@ -17,7 +17,7 @@ void MAttack(Character& character, Monster& monster)
     monster.attack(character, monster);
 }
 
-void Battle(Character& character, Monster& monster)
+int Battle(Character& character, Monster& monster)  // [한길] 3.31 죽었을 때 페이지 만들기 위해 반환값 자료형 int로 수정.
 {
     bool isplayerfast = IsPlayerFast(character, monster);
 
@@ -43,7 +43,7 @@ void Battle(Character& character, Monster& monster)
         {
             LogManager::PrintBattleLog("캐릭터가 사망하였습니다.", 3);
             WaitForNext();
-            return;
+            return 444;   // [한길] 3.31 죽었을 때 페이지 만들기 위해 int 값 반환.
         }
         WaitForNext();
     }
@@ -161,7 +161,7 @@ void Battle(Character& character, Monster& monster)
             {
                 LogManager::PrintBattleLog("캐릭터가 사망하였습니다.", 2);
                 WaitForNext();
-                break;
+                return 444;    // [한길] 3.31 죽었을 때 페이지 만들기 위해 int 값 반환.
             }
             WaitForNext();
         }
